@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.FXMLDocumentController">
+<StackPane prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.FXMLDocumentController">
    <children>
       <ImageView fx:id="imageView" fitHeight="415.0" fitWidth="719.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -13,15 +16,31 @@
          </image></ImageView>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label fx:id="lblWelcome" layoutX="272.0" layoutY="176.0" prefHeight="47.0" prefWidth="191.0" text="WELCOME" textFill="#e8e0e0">
+            <Label fx:id="lblWelcome" layoutX="138.0" layoutY="176.0" prefHeight="47.0" prefWidth="398.0" text="WELCOME KSM ADMIN" textFill="#e8e0e0">
                <font>
                   <Font size="38.0" />
                </font>
             </Label>
-            <Label fx:id="lblVersion" layoutX="618.0" layoutY="12.0" text="KSM Ledger 1.0" textFill="#8a7d7d" />
-            <Label fx:id="progress" layoutX="545.0" layoutY="364.0" prefHeight="17.0" prefWidth="105.0" text="loading..." textFill="#f2e0e0" />
-            <ProgressBar fx:id="statProgressBar" layoutX="-5.0" layoutY="392.0" opacity="0.59" prefHeight="13.0" prefWidth="727.0" progress="0.07" />
+            <Label fx:id="lblVersion" layoutX="619.0" layoutY="12.0" text="KSM Ledger 1.0" textFill="#8a7d7d" />
+            <Label fx:id="progress" layoutX="318.0" layoutY="229.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="#f2e0e0">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
+            <ProgressBar fx:id="progressbar" disable="true" layoutY="253.0" opacity="0.23" prefHeight="10.0" prefWidth="719.0" progress="0.0" stylesheets="@../../../style.css">
+               <effect>
+                  <ColorAdjust />
+               </effect>
+               <styleClass>
+                  <String fx:value="my-progress-bar" />
+                  <String fx:value="red-progress-bar" />
+               </styleClass></ProgressBar>
          </children>
+         <effect>
+            <Bloom threshold="0.41" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
       </Pane>
    </children>
 </StackPane>

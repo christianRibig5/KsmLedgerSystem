@@ -31,11 +31,10 @@ public class KsmPreLoader extends Preloader {
             ProgressNotification pn= (ProgressNotification) info;
             FXMLDocumentController.label.setText("Loading "+(pn.getProgress())*100 + "%");
             System.out.println("value@: "+pn.getProgress());
-            FXMLDocumentController.statProgressBar.setProgress(pn.getProgress());
-//            if(((ProgressNotification) info).getProgress()==50.0){
-//                FXMLDocumentController.welcome.setText("WELCOME");
-//            }
-
+            FXMLDocumentController.progressBar.setProgress(pn.getProgress());
+            if(pn.getProgress()==50.0){
+                FXMLDocumentController.welcome.setText("BYE BYE");
+            }
         }
     }
 

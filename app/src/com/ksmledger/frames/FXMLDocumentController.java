@@ -18,11 +18,11 @@ public class FXMLDocumentController implements Initializable {
     public static Label label;
 
     @FXML
-    private ProgressBar progressBar;
-    public static ProgressBar statProgressBar;
+    private ProgressBar progressbar;
+    public static ProgressBar progressBar;
 
     @FXML
-    Label lblWelcome;
+    private Label lblWelcome;
     public  static Label welcome;
 
 
@@ -32,8 +32,8 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         label=progress;
-        progressBar=statProgressBar;
-        lblWelcome=welcome;
+        progressBar=progressbar;
+        welcome=lblWelcome;
     }
 
 }

@@ -17,6 +17,8 @@ public class KSMLedgerApplication extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene= new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(700);
         primaryStage.show();
 
     }

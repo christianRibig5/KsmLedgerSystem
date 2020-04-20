@@ -10,10 +10,6 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
-    @FXML
-    private Label progress;
-
-    public static Label label;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
