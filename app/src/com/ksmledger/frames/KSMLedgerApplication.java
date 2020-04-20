@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.stage.StageStyle;
 
 
 public class KSMLedgerApplication extends Application {
@@ -17,8 +17,7 @@ public class KSMLedgerApplication extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene= new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1000);
-        primaryStage.setHeight(700);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 
     }
@@ -29,7 +28,7 @@ public class KSMLedgerApplication extends Application {
             double progress=(double) i/10;
             System.out.println("progress :"+progress);
             notifyPreloader(new Preloader.ProgressNotification(progress));
-            Thread.sleep(1000);
+            Thread.sleep(500);
         }
     }
 

@@ -16,6 +16,9 @@
 .green-progress-bar .bar {
         -fx-background-color: green;
 }
-.yellow-progress-bar .bar{
-        -fx-background-color: yellow;
+.white-progress-bar .bar{
+        -fx-background-color: white;
+}
+.pane {
+    -fx-background-color: #f0f8faaf;
 }
