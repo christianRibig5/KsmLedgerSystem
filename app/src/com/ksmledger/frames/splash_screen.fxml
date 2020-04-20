@@ -16,12 +16,12 @@
          </image></ImageView>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Label fx:id="lblWelcome" layoutX="138.0" layoutY="176.0" prefHeight="47.0" prefWidth="398.0" text="WELCOME KSM ADMIN" textFill="#e8e0e0">
+            <Label fx:id="lblWelcome" layoutX="241.0" layoutY="176.0" prefHeight="47.0" prefWidth="217.0" text="KSM ADMIN" textFill="#d0a39b">
                <font>
                   <Font size="38.0" />
                </font>
             </Label>
-            <Label fx:id="lblVersion" layoutX="619.0" layoutY="12.0" text="KSM Ledger 1.0" textFill="#8a7d7d" />
+            <Label fx:id="lblVersion" layoutX="652.0" layoutY="10.0" text="Ledger 1.0" textFill="#8a7d7d" />
             <Label fx:id="progress" layoutX="318.0" layoutY="229.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="#f2e0e0">
                <font>
                   <Font name="System Bold" size="13.0" />
