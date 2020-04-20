@@ -17,14 +17,14 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Hyperlink fx:id="forgotPasswordAction" layoutX="129.0" layoutY="256.0" prefHeight="25.0" prefWidth="111.0" text="Forgot password?" underline="true" />
+            <Hyperlink fx:id="forgotPasswordAction" layoutX="122.0" layoutY="256.0" prefHeight="25.0" prefWidth="111.0" text="Forgot password?" underline="true" />
          </children></AnchorPane>
       <ImageView fitHeight="223.0" fitWidth="212.0" layoutX="61.0" layoutY="103.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/logo_knights_ksm.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="702.0" layoutY="11.0" text="X" textFill="#e8ede8">
+      <Label fx:id="closeButtonAction" layoutX="702.0" layoutY="11.0" text="X" textFill="#e8ede8">
          <font>
             <Font size="20.0" />
          </font>
