@@ -11,13 +11,13 @@
    <children>
       <Pane prefHeight="389.0" prefWidth="615.0" style="-fx-background-color: #143855;">
          <children>
-            <Label fx:id="lblWelcome" layoutX="182.0" layoutY="125.0" prefHeight="47.0" prefWidth="217.0" text="KSM ADMIN" textFill="#d0a39b">
+            <Label fx:id="lblWelcome" layoutX="184.0" layoutY="125.0" opacity="0.24" prefHeight="47.0" prefWidth="217.0" text="KSM ADMIN" textFill="#11795f">
                <font>
                   <Font size="38.0" />
                </font>
             </Label>
-            <Label fx:id="lblVersion" layoutX="514.0" layoutY="15.0" text="Ledger 1.0" textFill="#8a7d7d" />
-            <Label fx:id="progress" layoutX="431.0" layoutY="191.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="#f2e0e0">
+            <Label fx:id="lblVersion" layoutX="514.0" layoutY="15.0" opacity="0.38" text="Ledger 1.0" textFill="#8a7d7d" />
+            <Label fx:id="progress" layoutX="431.0" layoutY="191.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="#11795f">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
@@ -27,7 +27,7 @@
                </effect>
                <styleClass>
                   <String fx:value="my-progress-bar" />
-                  <String fx:value="red-progress-bar" />
+                  <String fx:value="green-progress-bar" />
                </styleClass></ProgressBar>
          </children>
          <effect>

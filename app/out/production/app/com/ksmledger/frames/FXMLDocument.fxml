@@ -9,9 +9,9 @@
    <children>
       <AnchorPane layoutX="302.0" layoutY="64.0" prefHeight="312.0" prefWidth="356.0" style="-fx-background-color: #143855;">
          <children>
-            <TextField fx:id="memberID" layoutX="67.0" layoutY="89.0" prefHeight="25.0" prefWidth="228.0" promptText="Membership ID" style="-fx-background-color: #143855; -fx-border-color: #143855  #143855  #f0f4f7; -fx-text-fill: #f0f8faaf;" styleClass="text-input" stylesheets="@../../../style.css" />
-            <PasswordField fx:id="adminPassword" layoutX="69.0" layoutY="139.0" prefHeight="27.0" prefWidth="228.0" promptText="Password" style="-fx-background-color: #143855; -fx-border-color: #143855  #143855  #f0f4f7; -fx-text-fill: #f0f8faaf;" styleClass="text-input" stylesheets="@../../../style.css" />
-            <Button fx:id="logonAction" layoutX="71.0" layoutY="209.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="228.0" style="-fx-background-color: #06416e;" text="Login" textFill="#dee1d6de" />
+            <TextField fx:id="memberID" layoutX="67.0" layoutY="89.0" prefHeight="25.0" prefWidth="228.0" promptText="Membership ID" style="-fx-background-color: #143855; -fx-border-color: #143855  #143855  #11795f; -fx-text-fill: #f0f8faaf;" styleClass="text-input" stylesheets="@../../../style.css" />
+            <PasswordField fx:id="adminPassword" layoutX="69.0" layoutY="139.0" prefHeight="27.0" prefWidth="228.0" promptText="Password" style="-fx-background-color: #143855; -fx-border-color: #143855  #143855  #11795f; -fx-text-fill: #f0f8faaf;" styleClass="text-input" stylesheets="@../../../style.css" />
+            <Button fx:id="logonAction" layoutX="71.0" layoutY="209.0" mnemonicParsing="false" opacity="0.77" prefHeight="27.0" prefWidth="228.0" style="-fx-background-color: #06416e;" text="Login" textFill="#11795fde" />
             <Label layoutX="148.0" layoutY="36.0" prefHeight="17.0" prefWidth="66.0" text="Sign in" textFill="#dee1d6">
                <font>
                   <Font size="18.0" />
