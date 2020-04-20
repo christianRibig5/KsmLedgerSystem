@@ -25,9 +25,11 @@ DROP TABLE IF EXISTS `ksm_admin`;
 CREATE TABLE `ksm_admin` (
   `id` int NOT NULL AUTO_INCREMENT,
   `membership_id` varchar(45) NOT NULL,
+  `password` varchar(191) NOT NULL,
   `administrative_role` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `password_UNIQUE` (`password`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +38,7 @@ CREATE TABLE `ksm_admin` (
 
 LOCK TABLES `ksm_admin` WRITE;
 /*!40000 ALTER TABLE `ksm_admin` DISABLE KEYS */;
-INSERT INTO `ksm_admin` VALUES (1,'KSM12345AB','president');
+INSERT INTO `ksm_admin` VALUES (1,'KSM12345AB','legy12345','president');
 /*!40000 ALTER TABLE `ksm_admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +61,7 @@ CREATE TABLE `ksm_ledgers` (
   UNIQUE KEY `sn_UNIQUE` (`sn`),
   KEY `fk_ksm_ledgers_ksm_users1_idx` (`user_id`),
   CONSTRAINT `fk_ksm_ledgers_ksm_users1` FOREIGN KEY (`user_id`) REFERENCES `ksm_users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +86,7 @@ CREATE TABLE `ksm_roles` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `role_name_UNIQUE` (`role_name`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +129,7 @@ CREATE TABLE `ksm_users` (
   UNIQUE KEY `email_UNIQUE` (`email`),
   KEY `fk_ksm_users_ksm_roles_idx` (`role_id`),
   CONSTRAINT `fk_ksm_users_ksm_roles` FOREIGN KEY (`role_id`) REFERENCES `ksm_roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,4 +151,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-18 11:37:16
+-- Dump completed on 2020-04-20  4:59:45
