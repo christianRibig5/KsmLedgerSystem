@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="303.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.FXMLDocumentController">
+<StackPane prefHeight="304.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.FXMLDocumentController">
    <children>
-      <Pane prefHeight="389.0" prefWidth="615.0" style="-fx-background-color: #143855;">
+      <Pane prefHeight="287.0" prefWidth="547.0" style="-fx-background-color: #143855;">
          <children>
-            <Label fx:id="lblWelcome" layoutX="184.0" layoutY="125.0" opacity="0.24" prefHeight="47.0" prefWidth="217.0" text="KSM ADMIN" textFill="#11795f">
-               <font>
-                  <Font size="38.0" />
-               </font>
-            </Label>
-            <Label fx:id="lblVersion" layoutX="514.0" layoutY="15.0" opacity="0.38" text="Ledger 1.0" textFill="#8a7d7d" />
-            <Label fx:id="progress" layoutX="431.0" layoutY="191.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="#11795f">
+            <ImageView fitHeight="303.0" fitWidth="598.0" layoutX="-3.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/milky-way-2695569_960_720.jpg" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblVersion" layoutX="470.0" layoutY="15.0" opacity="0.38" text="Ledger 1.0" textFill="#8a7d7d" />
+            <Label fx:id="progress" layoutX="431.0" layoutY="191.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <ProgressBar fx:id="progressbar" disable="true" layoutX="43.0" layoutY="217.0" opacity="0.23" prefHeight="12.0" prefWidth="507.0" progress="0.0" style="-fx-background-color: #143855; -fx-border-color: #143855;" stylesheets="@../../../style.css">
+            <ProgressBar fx:id="progressbar" disable="true" layoutX="15.0" layoutY="217.0" opacity="0.23" prefHeight="12.0" prefWidth="507.0" progress="0.0" style="-fx-background-color: #143855; -fx-border-color: #143855;" stylesheets="@../../../style.css">
                <effect>
                   <ColorAdjust />
                </effect>

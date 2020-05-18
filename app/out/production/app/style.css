@@ -22,3 +22,18 @@
 .pane {
     -fx-background-color: #f0f8faaf;
 }
+.jfx-hamburger-icon StackPane{
+    -fx-pref-width: 40px;
+    -fx-pref-height: 7px;
+    -fx-background-color :  #143855;
+    -fx-background-radius : 5px;
+}
+.jfx-hamburger-icon{
+    -fx-spacing: 5;
+    -fx-cursor: hand;
+}
+.button:hover{
+    -fx-background-color :  #143855;
+    -fx-text-fill:  white;
+    -fx-text-alignment:  left;
+}

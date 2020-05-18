@@ -49,12 +49,9 @@ public class FXMLDocumentController implements Initializable {
         stage.close();
     }
 
-
     public FXMLDocumentController(){
         connection= ConnectionUtil.connectDB();
     }
-
-
 
     public void loginAction(ActionEvent event){
         String membershipID= txtMembershipID.getText();
