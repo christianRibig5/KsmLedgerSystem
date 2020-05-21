@@ -18,10 +18,11 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
-public class FXMLDocumentController implements Initializable {
+public class LoginController implements Initializable {
     @FXML
     private Label progress;
     public static Label label;
@@ -37,6 +38,14 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private PasswordField txtPassword;
+    @FXML
+    private Label membersCount;
+
+    @FXML
+    private Label ledgerBalance;
+
+    @FXML
+    private Label adminCount;
 
 
     private Connection connection=null;
@@ -49,14 +58,29 @@ public class FXMLDocumentController implements Initializable {
         stage.close();
     }
 
-    public FXMLDocumentController(){
+    public LoginController(){
         connection= ConnectionUtil.connectDB();
+    }
+
+    public void getAdminCount(){
+
+        try {
+            String sql="SELECT COUNT(*) FROM ksm_admin";
+            preparedStatement=connection.prepareStatement(sql);
+            resultSet=preparedStatement.executeQuery();
+            adminCount.setText(resultSet.toString());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void loginAction(ActionEvent event){
         String membershipID= txtMembershipID.getText();
         String password= txtPassword.getText();
         String sql="SELECT * FROM ksm_admin WHERE membership_id=? AND password =?";
+
         try {
             preparedStatement=connection.prepareStatement(sql);
             preparedStatement.setString(1,membershipID);
@@ -90,6 +114,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         label=progress;
         progressBar=progressbar;
+
     }
 
 }

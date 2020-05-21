@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="304.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.FXMLDocumentController">
+<StackPane prefHeight="304.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.LoginController">
    <children>
       <Pane prefHeight="287.0" prefWidth="547.0" style="-fx-background-color: #143855;">
          <children>
@@ -21,18 +21,18 @@
                   <Image url="@../images/milky-way-2695569_960_720.jpg" />
                </image>
             </ImageView>
-            <Label fx:id="lblVersion" layoutX="470.0" layoutY="15.0" opacity="0.38" text="Ledger 1.0" textFill="#8a7d7d" />
-            <Label fx:id="progress" layoutX="431.0" layoutY="191.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="WHITE">
+            <Label fx:id="lblVersion" layoutX="470.0" layoutY="15.0" opacity="0.58" text="Ledger 1.0" textFill="WHITE" />
+            <Label fx:id="progress" layoutX="412.0" layoutY="191.0" prefHeight="17.0" prefWidth="105.0" text="Loading..." textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <ProgressBar fx:id="progressbar" disable="true" layoutX="15.0" layoutY="217.0" opacity="0.23" prefHeight="12.0" prefWidth="507.0" progress="0.0" style="-fx-background-color: #143855; -fx-border-color: #143855;" stylesheets="@../../../style.css">
+            <ProgressBar fx:id="progressbar" disable="true" layoutX="15.0" layoutY="217.0" opacity="0.21" prefHeight="12.0" prefWidth="507.0" progress="0.0" style="-fx-background-color: #143855; -fx-border-color: #143855;" stylesheets="@../../../style.css">
                <effect>
                   <ColorAdjust />
                </effect>
                <styleClass>
                   <String fx:value="my-progress-bar" />
-                  <String fx:value="green-progress-bar" />
+                  <String fx:value="blue-progress-bar" />
                </styleClass></ProgressBar>
          </children>
          <effect>

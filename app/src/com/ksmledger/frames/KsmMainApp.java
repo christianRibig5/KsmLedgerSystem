@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
-public class KSMLedgerApplication extends Application {
+public class KsmMainApp extends Application {
     private static  final int COUNT_LIMIT=10;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene= new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -35,6 +35,6 @@ public class KSMLedgerApplication extends Application {
 
     public static void main(String[] args) {
         System.setProperty("javafx.preloader", KsmPreLoader.class.getCanonicalName());
-        Application.launch(KSMLedgerApplication.class, args);
+        Application.launch(KsmMainApp.class, args);
     }
 }

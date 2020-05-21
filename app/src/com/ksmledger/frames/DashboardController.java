@@ -5,10 +5,8 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import com.jfoenix.controls.JFXHamburger;
-import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -31,6 +29,15 @@ public class DashboardController implements Initializable {
 
     @FXML
     private JFXDrawer drawer;
+
+    @FXML
+    private Label membersCount;
+
+    @FXML
+    private Label ledgerBalance;
+
+    @FXML
+    private Label adminCount;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
@@ -50,7 +57,7 @@ public class DashboardController implements Initializable {
             });
 
         }catch(IOException ex){
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE,null,ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE,null,ex);
         }
     }
 }

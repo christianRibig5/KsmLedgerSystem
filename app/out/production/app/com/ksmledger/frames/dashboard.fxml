@@ -18,26 +18,26 @@
       <JFXDrawer fx:id="drawer" defaultDrawerSize="190.0" layoutY="-9.0" prefHeight="608.0" prefWidth="178.0" />
       <Pane layoutX="256.0" layoutY="108.0" prefHeight="188.0" prefWidth="200.0" style="-fx-background-color: #143855;">
          <children>
-            <Label layoutX="70.0" layoutY="32.0" prefHeight="17.0" prefWidth="71.0" text="Members" textFill="WHITE" />
-            <Label layoutX="67.0" layoutY="61.0" prefHeight="55.0" prefWidth="71.0" textFill="WHITE">
+            <Label layoutX="70.0" layoutY="32.0" prefHeight="17.0" prefWidth="58.0" text="Members" textFill="WHITE" />
+            <Label fx:id="membersCount" layoutX="67.0" layoutY="61.0" prefHeight="55.0" prefWidth="71.0" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="528.0" layoutY="108.0" prefHeight="188.0" prefWidth="200.0" style="-fx-background-color: #143855;">
+      <Pane layoutX="528.0" layoutY="108.0" prefHeight="188.0" prefWidth="200.0" style="-fx-background-color: #11795f;">
          <children>
-            <Label layoutX="62.0" layoutY="34.0" prefHeight="17.0" prefWidth="98.0" text="Ledger Balance" textFill="WHITE" />
-            <Label layoutX="65.0" layoutY="67.0" prefHeight="55.0" prefWidth="71.0" textFill="WHITE">
+            <Label layoutX="62.0" layoutY="34.0" prefHeight="17.0" prefWidth="91.0" text="Ledger Balance" textFill="WHITE" />
+            <Label fx:id="ledgerBalance" layoutX="65.0" layoutY="67.0" prefHeight="55.0" prefWidth="71.0" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="398.0" layoutY="325.0" prefHeight="188.0" prefWidth="200.0" style="-fx-background-color: #143855;">
+      <Pane layoutX="398.0" layoutY="325.0" prefHeight="188.0" prefWidth="200.0" style="-fx-background-color: #682C38;">
          <children>
-            <Label layoutX="55.0" layoutY="32.0" prefHeight="17.0" prefWidth="105.0" text="Administrators" textFill="WHITE" />
-            <Label layoutX="67.0" layoutY="61.0" prefHeight="55.0" prefWidth="71.0" textFill="WHITE">
+            <Label layoutX="53.0" layoutY="32.0" prefHeight="17.0" prefWidth="91.0" text="Administrators" textFill="WHITE" />
+            <Label fx:id="adminCount" layoutX="67.0" layoutY="61.0" prefHeight="55.0" prefWidth="71.0" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

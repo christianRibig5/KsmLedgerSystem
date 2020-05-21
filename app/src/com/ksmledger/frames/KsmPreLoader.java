@@ -14,7 +14,7 @@ public class KsmPreLoader extends Preloader {
 
     @Override
     public void init() throws Exception{
-        Parent root1= FXMLLoader.load(getClass().getResource("splash_screen.fxml"));
+        Parent root1= FXMLLoader.load(getClass().getResource("splashScreen.fxml"));
         scene=new Scene(root1);
     }
     @Override
@@ -29,9 +29,9 @@ public class KsmPreLoader extends Preloader {
     public void handleApplicationNotification(Preloader.PreloaderNotification info) {
         if(info instanceof ProgressNotification){
             ProgressNotification pn= (ProgressNotification) info;
-            FXMLDocumentController.label.setText("Loading "+(pn.getProgress())*100 + "%");
+            LoginController.label.setText("Loading "+(pn.getProgress())*100 + "%");
             System.out.println("value@: "+pn.getProgress());
-            FXMLDocumentController.progressBar.setProgress(pn.getProgress());
+            LoginController.progressBar.setProgress(pn.getProgress());
         }
     }
 
