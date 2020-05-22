@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -17,12 +16,12 @@
    <children>
       <Pane layoutX="-4.0" prefHeight="500.0" prefWidth="137.0" style="-fx-background-color: #143855;">
          <children>
-            <ImageView fitHeight="27.0" fitWidth="25.0" layoutX="50.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="backButton" fitHeight="27.0" fitWidth="25.0" layoutX="50.0" layoutY="66.0" onMouseClicked="#backAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/arrow_back.png" />
                </image>
             </ImageView>
-            <Label layoutX="51.0" layoutY="379.0" prefHeight="27.0" prefWidth="25.0" text="X" textFill="WHITE">
+            <Label fx:id="closeButton" layoutX="51.0" layoutY="379.0" onMouseClicked="#closeAction" prefHeight="27.0" prefWidth="25.0" text="X" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -34,19 +33,19 @@
          </font>
       </Label>
       <Separator layoutX="158.0" layoutY="85.0" prefHeight="4.0" prefWidth="586.0" style="-fx-background-color: #143855;" />
-      <TextField fx:id="txtMembershipID" layoutX="156.0" layoutY="117.0" prefHeight="29.0" prefWidth="170.0" promptText="Firstname" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="txtMembershipID1" layoutX="157.0" layoutY="156.0" prefHeight="29.0" prefWidth="170.0" promptText="Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="txtMembershipID11" layoutX="156.0" layoutY="195.0" prefHeight="29.0" prefWidth="170.0" promptText="Initiation Date" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="txtMembershipID111" layoutX="157.0" layoutY="234.0" prefHeight="29.0" prefWidth="170.0" promptText="City (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="txtMembershipID2" layoutX="364.0" layoutY="117.0" prefHeight="29.0" prefWidth="170.0" promptText="Middlename" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="txtMembershipID21" layoutX="564.0" layoutY="117.0" prefHeight="29.0" prefWidth="170.0" promptText="Lastname" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="txtMembershipID22" layoutX="366.0" layoutY="156.0" prefHeight="29.0" prefWidth="170.0" promptText="Email" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="txtMembershipID211" layoutX="566.0" layoutY="155.0" prefHeight="29.0" prefWidth="170.0" promptText="Phone" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <DatePicker layoutX="368.0" layoutY="317.0" prefHeight="27.0" prefWidth="181.0" promptText="Date of Birth (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
-      <TextArea layoutX="367.0" layoutY="197.0" prefHeight="110.0" prefWidth="371.0" promptText="Address (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
-      <ComboBox layoutX="158.0" layoutY="274.0" prefHeight="27.0" prefWidth="170.0" promptText="State (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
-      <ComboBox layoutX="159.0" layoutY="313.0" prefHeight="27.0" prefWidth="170.0" promptText="Country (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
-      <Button layoutX="160.0" layoutY="389.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="98.0" style="-fx-background-color: #FFFFFF;" text="Reset All" />
-      <Button layoutX="552.0" layoutY="392.0" mnemonicParsing="false" opacity="0.81" prefHeight="27.0" prefWidth="98.0" style="-fx-background-color: #143855;" text="Save" textFill="#dadada" />
+      <TextField fx:id="firstName" layoutX="156.0" layoutY="117.0" prefHeight="29.0" prefWidth="170.0" promptText="Firstname" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="membershipID" layoutX="157.0" layoutY="156.0" prefHeight="29.0" prefWidth="170.0" promptText="Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="city" layoutX="157.0" layoutY="234.0" prefHeight="29.0" prefWidth="170.0" promptText="City (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="middleName" layoutX="364.0" layoutY="117.0" prefHeight="29.0" prefWidth="170.0" promptText="Middlename (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="lastName" layoutX="564.0" layoutY="117.0" prefHeight="29.0" prefWidth="170.0" promptText="Lastname" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="email" layoutX="366.0" layoutY="156.0" prefHeight="29.0" prefWidth="170.0" promptText="Email (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="phone" layoutX="566.0" layoutY="155.0" prefHeight="29.0" prefWidth="170.0" promptText="Phone" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <DatePicker fx:id="dateDob" layoutX="368.0" layoutY="317.0" prefHeight="27.0" prefWidth="181.0" promptText="Date of Birth (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
+      <TextArea fx:id="address" layoutX="367.0" layoutY="197.0" prefHeight="110.0" prefWidth="371.0" promptText="Address (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
+      <Button fx:id="resetAllButton" layoutX="160.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#resetAllAction" prefHeight="27.0" prefWidth="98.0" style="-fx-background-color: #FFFFFF;" text="Reset All" />
+      <Button fx:id="saveButton" layoutX="552.0" layoutY="392.0" mnemonicParsing="false" onMouseClicked="#saveAction" opacity="0.81" prefHeight="27.0" prefWidth="98.0" style="-fx-background-color: #143855;" text="Save" textFill="#dadada" />
+      <DatePicker fx:id="initiationDate" layoutX="156.0" layoutY="194.0" prefHeight="29.0" prefWidth="170.0" promptText="Initiation Date" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
+      <TextField fx:id="state" layoutX="157.0" layoutY="274.0" prefHeight="29.0" prefWidth="170.0" promptText="State (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="country" layoutX="158.0" layoutY="314.0" prefHeight="29.0" prefWidth="170.0" promptText="Country (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
    </children>
 </AnchorPane>

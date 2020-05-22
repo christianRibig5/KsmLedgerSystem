@@ -97,9 +97,12 @@ public class LoginController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             }
+            preparedStatement.close();
+            resultSet.close();
         }catch (Exception ex){
             ex.printStackTrace();
         }
+
 
     }
     private static  void infoBox(String infoMessage, String headerText, String title){
