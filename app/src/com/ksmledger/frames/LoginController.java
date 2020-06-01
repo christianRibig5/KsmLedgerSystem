@@ -97,8 +97,6 @@ public class LoginController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             }
-            preparedStatement.close();
-            resultSet.close();
         }catch (Exception ex){
             ex.printStackTrace();
         }

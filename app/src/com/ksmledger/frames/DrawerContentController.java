@@ -35,17 +35,49 @@ public class DrawerContentController implements Initializable {
 
     @FXML
     void debitAction(ActionEvent event) {
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("debitLedger.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
     void ledgerAction(ActionEvent event) {
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("ledger.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @FXML
     void recordPaymentAction(ActionEvent event) {
-
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("recordPayment.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -65,7 +97,17 @@ public class DrawerContentController implements Initializable {
 
     @FXML
     void viewMemberAction(ActionEvent event) {
-
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("memberList.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

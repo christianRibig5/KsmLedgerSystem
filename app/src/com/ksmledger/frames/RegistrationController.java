@@ -11,11 +11,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RegistrationController implements Initializable {
     @FXML
@@ -106,10 +105,9 @@ public class RegistrationController implements Initializable {
         initiationDate.getEditor().clear();
         address.clear();
         city.clear();
-        state.setPromptText("State");
-        country.setPromptText("Country");
+        state.clear();
+        country.clear();
         dateDob.getEditor().clear();
-
     }
     @FXML
     void saveAction() {
@@ -129,19 +127,20 @@ public class RegistrationController implements Initializable {
                     "Please enter your membership ID");
             return;
         }
+        checkIfMembershipIDAlreadyExist(membershipID.getText());
+
         if(phone.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Please enter phone number");
             return;
         }
-
+        checkIfPhoneNumberAlreadyExist(phone.getText());
         if(initiationDate.getEditor().getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Please enter initiation date");
             return;
         }
-        checkIfDataAlreadyExist(membershipID.getText());
-
+        checkIfEmailAlreadyExist(email.getText());
 
         String query="INSERT INTO ksm_users(firstname, middlename, lastname, membership_id," +
                 "email, phone, initiation_date, address, city, state, country, avatar_path, role_id)" +
@@ -164,23 +163,54 @@ public class RegistrationController implements Initializable {
                     "Registration Successful!",
                     "Welcome " + firstName.getText()+" "+lastName.getText());
             clearText();
+            preparedStatement.close();
+            resultSet.close();
         }catch (SQLException ex){
-            ex.printStackTrace();
+            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,ex);
+            return;
         }
 
-
     }
-
-    private void checkIfDataAlreadyExist(String text) {
-       String checkQuery= "SELECT * from ksm_users WHERE membership_id = '" + text + "'";
+    private void checkIfMembershipIDAlreadyExist(String text) {
+        String checkQuery= "SELECT * from ksm_users WHERE membership_id = '" + text + "'";
         try {
             preparedStatement=connection.prepareStatement(checkQuery);
             resultSet=preparedStatement.executeQuery();
             if(resultSet.next()){
-                infoBox("membership id already exist",null,"failed");
+                infoBox("Sorry this membership id already exist",null,"failed");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,e);
+        }
+    }
+
+    private void checkIfEmailAlreadyExist(String text) {
+        if(text!=null||!text.isEmpty()){
+            String checkQuery= "SELECT * from ksm_users WHERE email = '" + text + "'";
+            try {
+                preparedStatement=connection.prepareStatement(checkQuery);
+                resultSet=preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    infoBox("Sorry this email has been taken",null,"failed");
+                }
+            } catch (SQLException e) {
+                Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,e);
+            }
+        }
+    }
+
+    private void checkIfPhoneNumberAlreadyExist(String text) {
+        if(text!=null||!text.isEmpty()){
+            String checkQuery= "SELECT * from ksm_users WHERE phone = '" + text + "'";
+            try {
+                preparedStatement=connection.prepareStatement(checkQuery);
+                resultSet=preparedStatement.executeQuery();
+                if(resultSet.next()){
+                    infoBox("Sorry this phone number has been taken",null,"failed");
+                }
+            } catch (SQLException e) {
+                Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,e);
+            }
         }
     }
 
