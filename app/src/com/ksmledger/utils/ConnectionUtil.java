@@ -10,7 +10,7 @@ public class ConnectionUtil {
     public static Connection connectDB(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/ksmledgerdb?useTimezone=true&serverTimezone=UTC","root","");
+            conn= DriverManager.getConnection("jdbc:mysql://localhost:3307/ksmledgerdb?useTimezone=true&serverTimezone=UTC","root","");
             return conn;
         }catch (Exception ex){
             Logger.getLogger(ConnectionUtil.class.getName()).log(Level.SEVERE, null,ex);

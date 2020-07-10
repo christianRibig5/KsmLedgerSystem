@@ -27,6 +27,7 @@ public class RecordPaymentController implements Initializable {
     @FXML
     private TextField membershipID;
 
+
     @FXML
     private Button creditButton;
 
@@ -38,6 +39,9 @@ public class RecordPaymentController implements Initializable {
 
     @FXML
     private ComboBox<String> paymentParticulars;
+
+
+
 
     public RecordPaymentController(){
         connection= ConnectionUtil.connectDB();
@@ -81,7 +85,7 @@ public class RecordPaymentController implements Initializable {
             return;
         }
         checkIfMembershipIDAlreadyExist(membershipID.getText());
-        if(creditAmount.getText().isEmpty()){
+        if(membershipID.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Please enter the credit amount");
             return;
@@ -96,8 +100,8 @@ public class RecordPaymentController implements Initializable {
                     "Please enter date this payment was made");
             return;
         }
-        String query="INSERT INTO ksm_ledgers(user_id, transaction_date, debit, credit, particulars)" +
-                "VALUES('"+getUserID(membershipID.getText())+"',?,0.00, ?,?)";
+        String query="INSERT INTO ksm_ledgers(user_id,transaction_date,debit,credit,particulars)" +
+                "VALUES('"+getUserID(membershipID.getText())+"',?,0.0,?,?)";
         try {
             preparedStatement=connection.prepareStatement(query);
             preparedStatement.setString(1,paymentDate.getEditor().getText());
@@ -106,6 +110,10 @@ public class RecordPaymentController implements Initializable {
             preparedStatement.executeUpdate();
             showAlert(Alert.AlertType.CONFIRMATION, owner,
                     "Account credit Successful!", "Thank you!");
+
+            double totalDues=validateTotalDues5();
+            validateTotalPaidDues6(creditAmount.getText());
+            validateTotalUnpaidDues7(totalDues,creditAmount.getText());
             validateVault();
             clearText();
         }catch (SQLException ex){
@@ -114,6 +122,63 @@ public class RecordPaymentController implements Initializable {
         }
 
     }
+
+
+
+
+    private double validateTotalDues5() {
+        double sum=0;
+        String sql="SELECT SUM(previous_outstanding,yearly_budget, hall_levy, other_levies) FROM ksm_dues WHERE user_id='"+getUserID(membershipID.getText())+"'";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                double value = resultSet.getDouble(1);
+                sum = sum + value;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        updateTotalDues(sum);
+        return sum;
+    }
+
+    private void updateTotalDues(double sum) {
+        String sql="UPDATE ksm_dues" +
+                " SET total_dues =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1,sum );
+            preparedStatement.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    private void validateTotalPaidDues6(String text) {
+        String sql="UPDATE ksm_dues" +
+                " SET total_dues_paid =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1,Double.valueOf(text));
+            preparedStatement.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    private void validateTotalUnpaidDues7(double totalDues, String creditAmount) {
+        double unpaidBalance=totalDues-Double.valueOf(creditAmount);
+        String sql="UPDATE ksm_dues" +
+                " SET unpaid_balance =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1,unpaidBalance);
+            preparedStatement.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
 
     private void validateVault() {
         double debit=getAllDebits();
@@ -218,6 +283,6 @@ public class RecordPaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        paymentParticulars.getItems().addAll("Monthly Dues", "Levy", "Fine");
+        paymentParticulars.getItems().addAll("Previous Outstanding", "Yearly Budget","Hall Levy", "Other Levies");
     }
 }

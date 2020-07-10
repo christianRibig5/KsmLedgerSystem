@@ -140,6 +140,11 @@ public class RegistrationController implements Initializable {
                     "Please enter initiation date");
             return;
         }
+        if(email.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Please enter email");
+
+        }
         checkIfEmailAlreadyExist(email.getText());
 
         String query="INSERT INTO ksm_users(firstname, middlename, lastname, membership_id," +

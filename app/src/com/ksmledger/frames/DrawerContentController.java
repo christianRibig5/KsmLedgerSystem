@@ -28,6 +28,9 @@ public class DrawerContentController implements Initializable {
     private Button ksmLedger;
 
     @FXML
+    private Button recordDues;
+
+    @FXML
     private Button debitLedger;
 
     @FXML
@@ -81,6 +84,21 @@ public class DrawerContentController implements Initializable {
     }
 
     @FXML
+    void recordDuesAction(ActionEvent event) {
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("dues.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void registerMemberAction(ActionEvent event) {
         try {
             Node node =(Node)event.getSource();
@@ -126,6 +144,7 @@ public class DrawerContentController implements Initializable {
         viewMembers.setAlignment(Pos.BASELINE_LEFT);
         ksmLedger.setAlignment(Pos.BASELINE_LEFT);
         debitLedger.setAlignment(Pos.BASELINE_LEFT);
+        recordDues.setAlignment(Pos.BASELINE_LEFT);
         exit.setAlignment(Pos.BASELINE_LEFT);
     }
 }

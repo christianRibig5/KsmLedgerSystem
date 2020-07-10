@@ -13,6 +13,7 @@
          </image>
       </ImageView>
       <Button fx:id="registerMember" accessibleText="Material_One" mnemonicParsing="false" onAction="#registerMemberAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Register  Member" />
+      <Button fx:id="recordDues" accessibleText="Material_One" layoutX="10.0" layoutY="123.0" mnemonicParsing="false" onAction="#recordDuesAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Record Dues " />
       <Button fx:id="recordPayment" accessibleText="Material_Two" layoutX="10.0" layoutY="121.0" mnemonicParsing="false" onAction="#recordPaymentAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Record Payment" />
       <Button fx:id="viewMembers" accessibleText="Material_Three" layoutX="10.0" layoutY="148.0" mnemonicParsing="false" onAction="#viewMemberAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Members List" />
       <Button fx:id="ksmLedger" accessibleText="Materia_Four" layoutX="10.0" layoutY="148.0" mnemonicParsing="false" onAction="#ledgerAction" prefHeight="0.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="KSM Ledger" />
