@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.DrawerContentController">
+<VBox prefHeight="600.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.DrawerContentController">
    <children>
       <ImageView fitHeight="200.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -15,9 +15,12 @@
       <Button fx:id="registerMember" accessibleText="Material_One" mnemonicParsing="false" onAction="#registerMemberAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Register  Member" />
       <Button fx:id="recordDues" accessibleText="Material_One" layoutX="10.0" layoutY="123.0" mnemonicParsing="false" onAction="#recordDuesAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Record Dues " />
       <Button fx:id="recordPayment" accessibleText="Material_Two" layoutX="10.0" layoutY="121.0" mnemonicParsing="false" onAction="#recordPaymentAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Record Payment" />
+      <Button fx:id="debitLedger" accessibleText="Material_Five" layoutX="10.0" layoutY="177.0" mnemonicParsing="false" onAction="#debitAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Record Withdrawal" />
       <Button fx:id="viewMembers" accessibleText="Material_Three" layoutX="10.0" layoutY="148.0" mnemonicParsing="false" onAction="#viewMemberAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Members List" />
       <Button fx:id="ksmLedger" accessibleText="Materia_Four" layoutX="10.0" layoutY="148.0" mnemonicParsing="false" onAction="#ledgerAction" prefHeight="0.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="KSM Ledger" />
-      <Button fx:id="debitLedger" accessibleText="Material_Five" layoutX="10.0" layoutY="177.0" mnemonicParsing="false" onAction="#debitAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Debit Ledger" />
+      <Button fx:id="generalLedger" accessibleText="Material_Five" layoutX="10.0" layoutY="256.0" mnemonicParsing="false" onAction="#generalLedgerAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="General Ledger" />
+      <Button fx:id="updateUser" accessibleText="Material_Five" layoutX="10.0" layoutY="283.0" mnemonicParsing="false" onAction="#updateUserAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Update  Member Details" />
+      <Button fx:id="updateDues" accessibleText="Material_Five" layoutX="10.0" layoutY="283.0" mnemonicParsing="false" onAction="#updateDuesAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Update Member  Dues" />
       <Button fx:id="exit" accessibleText="Materia_Six" layoutX="10.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#closeAction" prefHeight="27.0" prefWidth="200.0" styleClass="button:hover" stylesheets="@../../../style.css" text="Exit" />
    </children>
 </VBox>

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/KsmLedgerSystem.iml" filepath="$PROJECT_DIR$/.idea/KsmLedgerSystem.iml" />
       <module fileurl="file://$PROJECT_DIR$/KsmLedgerSystem.iml" filepath="$PROJECT_DIR$/KsmLedgerSystem.iml" />
     </modules>
   </component>

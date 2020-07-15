@@ -27,7 +27,6 @@ public class RecordPaymentController implements Initializable {
     @FXML
     private TextField membershipID;
 
-
     @FXML
     private Button creditButton;
 
@@ -111,9 +110,8 @@ public class RecordPaymentController implements Initializable {
             showAlert(Alert.AlertType.CONFIRMATION, owner,
                     "Account credit Successful!", "Thank you!");
 
-            double totalDues=validateTotalDues5();
             validateTotalPaidDues6(creditAmount.getText());
-            validateTotalUnpaidDues7(totalDues,creditAmount.getText());
+            validateTotalDues5();
             validateVault();
             clearText();
         }catch (SQLException ex){
@@ -127,28 +125,31 @@ public class RecordPaymentController implements Initializable {
 
 
     private double validateTotalDues5() {
+        //SUM(previous_outstanding,yearly_budget, hall_levy, other_levies)
         double sum=0;
-        String sql="SELECT SUM(previous_outstanding,yearly_budget, hall_levy, other_levies) FROM ksm_dues WHERE user_id='"+getUserID(membershipID.getText())+"'";
+        String sql="SELECT unpaid_balance FROM ksm_dues WHERE user_id='"+getUserID(membershipID.getText())+"'";
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 double value = resultSet.getDouble(1);
-                sum = sum + value;
+                sum = value;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        updateTotalDues(sum);
+        updateTotalDues(sum,creditAmount.getText(),paymentDate.getEditor().getText());
         return sum;
     }
 
-    private void updateTotalDues(double sum) {
+    private void updateTotalDues(double sum, String paidAmount, String timeOfPayment) {
         String sql="UPDATE ksm_dues" +
-                " SET total_dues =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
+                " SET unpaid_balance =?,updated_at =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
+        double totalDues=sum-Double.valueOf(paidAmount);
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setDouble(1,sum );
+            preparedStatement.setDouble(1,totalDues);
+            preparedStatement.setString(2,timeOfPayment);
             preparedStatement.executeUpdate();
         }catch(SQLException ex){
             ex.printStackTrace();
@@ -156,29 +157,36 @@ public class RecordPaymentController implements Initializable {
     }
 
     private void validateTotalPaidDues6(String text) {
+       double  previousMemberPaidDues= getPreviousBalance();
+       double updatedBalance=previousMemberPaidDues+Double.valueOf(text);
+
         String sql="UPDATE ksm_dues" +
                 " SET total_dues_paid =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setDouble(1,Double.valueOf(text));
-            preparedStatement.executeUpdate();
-        }catch(SQLException ex){
-            ex.printStackTrace();
-        }
-    }
-    private void validateTotalUnpaidDues7(double totalDues, String creditAmount) {
-        double unpaidBalance=totalDues-Double.valueOf(creditAmount);
-        String sql="UPDATE ksm_dues" +
-                " SET unpaid_balance =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
-        try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setDouble(1,unpaidBalance);
+            preparedStatement.setDouble(1,updatedBalance);
             preparedStatement.executeUpdate();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
     }
 
+    private double getPreviousBalance() {
+        double sum=0;
+        String sql="SELECT total_dues_paid FROM ksm_dues WHERE user_id='"+getUserID(membershipID.getText())+"'";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                double value = resultSet.getDouble(1);
+                sum = value;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sum;
+    }
 
     private void validateVault() {
         double debit=getAllDebits();
@@ -283,6 +291,6 @@ public class RecordPaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        paymentParticulars.getItems().addAll("Previous Outstanding", "Yearly Budget","Hall Levy", "Other Levies");
+        paymentParticulars.getItems().addAll("Dues Payment","Previous Outstanding", "Yearly Budget","Hall Levy", "Other Levies");
     }
 }

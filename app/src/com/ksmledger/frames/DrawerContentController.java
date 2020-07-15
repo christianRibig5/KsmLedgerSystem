@@ -34,6 +34,15 @@ public class DrawerContentController implements Initializable {
     private Button debitLedger;
 
     @FXML
+    private Button generalLedger;
+
+    @FXML
+    private Button updateUser;
+
+    @FXML
+    private Button updateDues;
+
+    @FXML
     private Button exit;
 
     @FXML
@@ -127,6 +136,53 @@ public class DrawerContentController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    void updateDuesAction(ActionEvent event) {
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("updateDues.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void updateUserAction(ActionEvent event) {
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("updateUser.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    void generalLedgerAction(ActionEvent event) {
+        try {
+            Node node =(Node)event.getSource();
+            Stage stage=(Stage)node.getScene().getWindow();
+            stage.close();
+            Scene scene= null;
+            scene = new Scene(FXMLLoader.load(getClass().getResource("allLedger.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @FXML
     void closeAction() {
@@ -145,6 +201,10 @@ public class DrawerContentController implements Initializable {
         ksmLedger.setAlignment(Pos.BASELINE_LEFT);
         debitLedger.setAlignment(Pos.BASELINE_LEFT);
         recordDues.setAlignment(Pos.BASELINE_LEFT);
+        updateDues.setAlignment(Pos.BASELINE_LEFT);
+        generalLedger.setAlignment(Pos.BASELINE_LEFT);
+        updateUser.setAlignment(Pos.BASELINE_LEFT);
         exit.setAlignment(Pos.BASELINE_LEFT);
+
     }
 }

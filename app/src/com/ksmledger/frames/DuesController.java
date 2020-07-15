@@ -142,10 +142,10 @@ public class DuesController implements Initializable {
     }
 
     private double totalDues() {
-        double prevBal=Double.valueOf(outstandingBalance.getText().toString());
-        double yearlyBudg=Double.valueOf(yearlyBudget.getText().toString());
-        double halLevy=Double.valueOf(hallLevy.getText().toString());
-        double odaLevies=Double.valueOf(otherLevy.getText().toString());;
+        double prevBal=Double.valueOf(outstandingBalance.getText());
+        double yearlyBudg=Double.valueOf(yearlyBudget.getText());
+        double halLevy=Double.valueOf(hallLevy.getText());
+        double odaLevies=Double.valueOf(otherLevy.getText());
 //        if(!outstandingBalance.getText().isEmpty()) {
 //            prevBal=Double.valueOf(outstandingBalance.getText().toString());
 //        }
