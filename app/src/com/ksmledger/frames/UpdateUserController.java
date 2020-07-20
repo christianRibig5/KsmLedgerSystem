@@ -101,7 +101,7 @@ public class UpdateUserController implements Initializable {
 
         if(searchedMemberID.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please memebership ID of user to search");
+                    "Please enter the membership ID of the member to search");
             return;
         }
 
@@ -145,6 +145,11 @@ public class UpdateUserController implements Initializable {
     @FXML
     void updateAction() {
         Window owner = updateButton.getScene().getWindow();
+        if(searchedMemberID.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Please enter the membership ID of the member to search");
+            return;
+        }
         String sql="UPDATE ksm_users" +
                 " SET firstname =?,lastname =?,middlename=?, email=?," +
                 "phone=?,city=?,dob=?,address=?,initiation_date=?,state=?,country=? " +

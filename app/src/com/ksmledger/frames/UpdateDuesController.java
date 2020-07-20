@@ -2,19 +2,18 @@ package com.ksmledger.frames;
 
 import com.ksmledger.utils.ConnectionUtil;
 import com.ksmledger.utils.LoggedInAdminUserId;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.sql.*;
-import java.util.ResourceBundle;
-
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
 public class UpdateDuesController implements Initializable{
 
@@ -69,7 +68,7 @@ public class UpdateDuesController implements Initializable{
 
         if(searchedMemberID.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please memebership ID of user to search");
+                    "Please enter the membership ID of the member to search");
             return;
         }
 
@@ -145,6 +144,11 @@ public class UpdateDuesController implements Initializable{
     @FXML
     void updateAction() {
         Window owner = updateButton.getScene().getWindow();
+        if(searchedMemberID.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
+                    "Please enter the membership ID of the member to search");
+            return;
+        }
 
         String sql="UPDATE ksm_dues" +
                     " SET previous_outstanding = ?,yearly_budget = ?, ksm_hall_levy = ?," +
@@ -157,8 +161,6 @@ public class UpdateDuesController implements Initializable{
             preparedStatement.setString(3,hallLevy.getText());
             preparedStatement.setString(4,otherLevy.getText());
             preparedStatement.executeUpdate();
-            validateTotalPaidDues();
-            validateTotalDues();
             validateUnpaidDues();
             showAlert(Alert.AlertType.CONFIRMATION, owner,
                     "Dues Update", "Data update was successful!");
@@ -169,7 +171,7 @@ public class UpdateDuesController implements Initializable{
 
 
 
-    private void validateTotalDues() {
+    private double getTotalDues() {
         double prevBal=Double.valueOf(outstandingBalance.getText());
         double yearlyBudg=Double.valueOf(yearlyBudget.getText());
         double halLevy=Double.valueOf(hallLevy.getText());
@@ -183,6 +185,7 @@ public class UpdateDuesController implements Initializable{
         }catch(SQLException ex){
             ex.printStackTrace();
         }
+        return latestTotalDues;
     }
     private void validateUnpaidDues() {
         double unpaidBalance=0;
@@ -192,8 +195,8 @@ public class UpdateDuesController implements Initializable{
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 unpaidBalance = resultSet.getDouble(1);
-                unpaidBalance =unpaidBalance + (latestTotalDues - totalPaidDues);
             }
+            unpaidBalance =unpaidBalance + (getTotalDues() - getTotalPaidDues());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -213,18 +216,18 @@ public class UpdateDuesController implements Initializable{
         }
     }
 
-    private void validateTotalPaidDues() {
+    private double getTotalPaidDues() {
         String sql="SELECT total_dues_paid FROM ksm_dues WHERE user_id='"+getUserID()+"'";
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 totalPaidDues = resultSet.getDouble(1);
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return totalPaidDues;
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

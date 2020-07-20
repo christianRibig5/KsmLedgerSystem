@@ -22,7 +22,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Hyperlink fx:id="forgotPasswordAction" layoutX="122.0" layoutY="256.0" prefHeight="25.0" prefWidth="111.0" text="Forgot password?" underline="true" />
+            <Hyperlink fx:id="forgotPasswordLink" layoutX="122.0" layoutY="256.0" onAction="#forgetPasswordAction" prefHeight="25.0" prefWidth="111.0" text="Forgot password?" underline="true" />
          </children></AnchorPane>
       <ImageView fitHeight="223.0" fitWidth="171.0" layoutX="61.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
          <image>

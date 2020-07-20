@@ -1,6 +1,7 @@
 package com.ksmledger.frames;
 
 import com.ksmledger.utils.ConnectionUtil;
+import com.ksmledger.utils.EmailPattern;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -138,9 +139,10 @@ public class RegistrationController implements Initializable {
                     "Please enter initiation date");
             return;
         }
-        if(email.getText().isEmpty()){
+        if(email.getText().isEmpty() || !EmailPattern.matches(email.getText())){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter email");
+                    "Please enter valid email address");
+            return;
 
         }
         checkIfEmailAlreadyExist(email.getText());
@@ -188,7 +190,7 @@ public class RegistrationController implements Initializable {
     }
 
     private void checkIfEmailAlreadyExist(String text) {
-        if(text!=null||!text.isEmpty()){
+        //if(text!=null||!text.isEmpty()){
             String checkQuery= "SELECT * from ksm_users WHERE email = '" + text + "'";
             try {
                 preparedStatement=connection.prepareStatement(checkQuery);
@@ -199,7 +201,7 @@ public class RegistrationController implements Initializable {
             } catch (SQLException e) {
                 Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,e);
             }
-        }
+       // }
     }
 
     private void checkIfPhoneNumberAlreadyExist(String text) {

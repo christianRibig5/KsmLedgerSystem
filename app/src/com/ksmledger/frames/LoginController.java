@@ -38,6 +38,11 @@ public class LoginController implements Initializable {
 
     @FXML
     private PasswordField txtPassword;
+
+    @FXML
+    private Hyperlink forgotPasswordLink;
+
+
     @FXML
     private Label membersCount;
 
@@ -101,6 +106,22 @@ public class LoginController implements Initializable {
             ex.printStackTrace();
         }
 
+
+    }
+
+
+    @FXML
+    void forgetPasswordAction(ActionEvent event) {
+        try {
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.close();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("changePassword.fxml")));
+            stage.setScene(scene);
+            stage.show();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
 
     }
     private static  void infoBox(String infoMessage, String headerText, String title){
