@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="331.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.UpdateDuesController">
    <children>
       <Pane layoutX="-3.0" prefHeight="348.0" prefWidth="131.0" style="-fx-background-color: #143855;">
@@ -35,12 +34,13 @@
       </Label>
       <Separator layoutX="154.0" layoutY="76.0" prefHeight="1.0" prefWidth="325.0" style="-fx-background-color: #143855;" />
       <TextField fx:id="membershipID" layoutX="186.0" layoutY="98.0" prefHeight="29.0" prefWidth="170.0" promptText="Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <Button fx:id="saveButton" layoutX="381.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#saveAction" opacity="0.81" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #143855;" text="UPDATE" textFill="#dadada" />
+      <Button fx:id="updateButton" layoutX="381.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#updateAction" opacity="0.81" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #143855;" text="UPDATE" textFill="#dadada" />
       <DatePicker fx:id="createdAt" layoutX="365.0" layoutY="191.0" prefHeight="29.0" prefWidth="170.0" promptText="Date" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
       <TextField fx:id="outstandingBalance" layoutX="365.0" layoutY="98.0" prefHeight="29.0" prefWidth="170.0" promptText="Previous Outsatnding" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
       <TextField fx:id="yearlyBudget" layoutX="186.0" layoutY="141.0" prefHeight="29.0" prefWidth="170.0" promptText="Yearly Budget" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
       <TextField fx:id="hallLevy" layoutX="365.0" layoutY="141.0" prefHeight="29.0" prefWidth="170.0" promptText="Hall Levy" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
       <TextField fx:id="otherLevy" layoutX="186.0" layoutY="191.0" prefHeight="29.0" prefWidth="170.0" promptText="Other Levies" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="searchedMemberID" layoutX="186.0" layoutY="268.0" onDragExited="#searchAction" prefHeight="29.0" prefWidth="170.0" promptText="Search by Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="searchedMemberID" layoutX="263.0" layoutY="268.0" prefHeight="29.0" prefWidth="107.0" promptText="Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <Button fx:id="findButton" layoutX="186.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#FindAction" opacity="0.81" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #143855;" text="FIND" textFill="#dadada" />
    </children>
 </AnchorPane>

@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onMouseClicked="#closeAction" prefHeight="427.0" prefWidth="732.0" style="-fx-background-color: #ffffff;" styleClass="black-pane" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.LoginController">
+<AnchorPane onMouseClicked="#closeAction" prefHeight="427.0" prefWidth="732.0" style="-fx-background-color: #ffffff;" styleClass="black-pane" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.LoginController">
    <children>
       <AnchorPane layoutX="302.0" layoutY="64.0" prefHeight="312.0" prefWidth="356.0" style="-fx-background-color: #143855;">
          <children>
             <TextField fx:id="txtMembershipID" layoutX="67.0" layoutY="89.0" prefHeight="25.0" prefWidth="228.0" promptText="Membership ID" style="-fx-background-color: #143855; -fx-border-color: #143855  #143855  #11795f; -fx-text-fill: #f0f8faaf;" styleClass="text-input" stylesheets="@../../../style.css" />
             <PasswordField fx:id="txtPassword" layoutX="69.0" layoutY="139.0" prefHeight="27.0" prefWidth="228.0" promptText="Password" style="-fx-background-color: #143855; -fx-border-color: #143855  #143855  #11795f; -fx-text-fill: #f0f8faaf;" styleClass="text-input" stylesheets="@../../../style.css" />
-            <Button fx:id="btnLogin" layoutX="71.0" layoutY="209.0" mnemonicParsing="false" onAction="#loginAction" opacity="0.77" prefHeight="27.0" prefWidth="228.0" style="-fx-background-color: #06416e;" text="Login" textFill="#73e8cade" />
+            <Button fx:id="btnLogin" layoutX="71.0" layoutY="209.0" mnemonicParsing="false" onAction="#loginAction" opacity="0.77" prefHeight="27.0" prefWidth="228.0" style="-fx-background-color: #06416e;" text="LOGIN" textFill="#73e8cade" />
             <Label layoutX="148.0" layoutY="36.0" prefHeight="17.0" prefWidth="66.0" text="Sign in" textFill="#11795f">
                <font>
                   <Font size="18.0" />
@@ -29,7 +29,7 @@
             <Image url="@../images/logo_knights_ksm.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="closeButton" layoutX="702.0" layoutY="11.0" onMouseClicked="#closeAction" text="X" textFill="#11795f">
+      <Label fx:id="closeButton" layoutX="690.0" layoutY="11.0" onMouseClicked="#closeAction" text="X" textFill="#11795f">
          <font>
             <Font size="20.0" />
          </font>

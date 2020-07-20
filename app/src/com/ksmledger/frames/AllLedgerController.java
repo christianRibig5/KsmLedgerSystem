@@ -151,7 +151,7 @@ public class AllLedgerController implements Initializable {
         col_outstanding.setCellValueFactory(new PropertyValueFactory<>("previousOutstanding"));
         col_budget.setCellValueFactory(new PropertyValueFactory<>("yearlyBudget"));
         col_hall_levy.setCellValueFactory(new PropertyValueFactory<>("hallLevy"));
-        col_other_levy.setCellValueFactory(new PropertyValueFactory<>("credit"));
+        col_other_levy.setCellValueFactory(new PropertyValueFactory<>("otherLevies"));
         col_total_dues.setCellValueFactory(new PropertyValueFactory<>("totalDues"));
         col_total_paid_dues.setCellValueFactory(new PropertyValueFactory<>("totalDuesPaid"));
         col_total_unpaid_balance.setCellValueFactory(new PropertyValueFactory<>("totalUnpaidDues"));

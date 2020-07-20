@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="510.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.UpdateUserController">
    <children>
       <Pane prefHeight="510.0" prefWidth="143.0" style="-fx-background-color: #143855;">
@@ -48,6 +47,7 @@
       <DatePicker fx:id="initiationDate" layoutX="166.0" layoutY="204.0" prefHeight="29.0" prefWidth="170.0" promptText="Initiation Date" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
       <TextField fx:id="state" layoutX="167.0" layoutY="284.0" prefHeight="29.0" prefWidth="170.0" promptText="State (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
       <TextField fx:id="country" layoutX="168.0" layoutY="324.0" prefHeight="29.0" prefWidth="170.0" promptText="Country (optional)" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="searchedMemeberID" layoutX="325.0" layoutY="401.0" onMouseExited="#searchAction" prefHeight="29.0" prefWidth="170.0" promptText="Search by Membership  ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="searchedMemberID" layoutX="325.0" layoutY="401.0" prefHeight="29.0" prefWidth="105.0" promptText="Membership  ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <Button fx:id="findButton" layoutX="222.0" layoutY="402.0" mnemonicParsing="false" onMouseClicked="#findAction" opacity="0.81" prefHeight="27.0" prefWidth="98.0" style="-fx-background-color: #143855;" text="FIND" textFill="#dadada" />
    </children>
 </AnchorPane>

@@ -111,7 +111,7 @@ public class RecordPaymentController implements Initializable {
                     "Account credit Successful!", "Thank you!");
 
             validateTotalPaidDues6(creditAmount.getText());
-            validateTotalDues5();
+            validateUnpaidBalance();
             validateVault();
             clearText();
         }catch (SQLException ex){
@@ -124,7 +124,7 @@ public class RecordPaymentController implements Initializable {
 
 
 
-    private double validateTotalDues5() {
+    private double validateUnpaidBalance() {
         //SUM(previous_outstanding,yearly_budget, hall_levy, other_levies)
         double sum=0;
         String sql="SELECT unpaid_balance FROM ksm_dues WHERE user_id='"+getUserID(membershipID.getText())+"'";
@@ -138,11 +138,11 @@ public class RecordPaymentController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        updateTotalDues(sum,creditAmount.getText(),paymentDate.getEditor().getText());
+        updateUnpaidBalance(sum,creditAmount.getText(),paymentDate.getEditor().getText());
         return sum;
     }
 
-    private void updateTotalDues(double sum, String paidAmount, String timeOfPayment) {
+    private void updateUnpaidBalance(double sum, String paidAmount, String timeOfPayment) {
         String sql="UPDATE ksm_dues" +
                 " SET unpaid_balance =?,updated_at =? WHERE user_id = '"+getUserID(membershipID.getText())+"'";
         double totalDues=sum-Double.valueOf(paidAmount);

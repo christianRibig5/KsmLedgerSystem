@@ -22,8 +22,6 @@ public class RegistrationController implements Initializable {
 
     @FXML
     private Label closeButton;
-    @FXML
-    private Button resetAllButton;
 
     @FXML
     private Button saveButton;
