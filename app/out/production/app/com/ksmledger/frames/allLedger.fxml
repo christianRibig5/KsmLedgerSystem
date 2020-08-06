@@ -9,23 +9,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="487.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.AllLedgerController">
+<AnchorPane fx:id="app" prefHeight="487.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.AllLedgerController">
    <children>
-      <Pane layoutX="-4.0" layoutY="-3.0" prefHeight="523.0" prefWidth="71.0" style="-fx-background-color: #143855;">
+      <Pane layoutX="-4.0" layoutY="-3.0" prefHeight="531.0" prefWidth="71.0" style="-fx-background-color: #143855;">
          <children>
-            <ImageView fx:id="backButton" fitHeight="24.0" fitWidth="23.0" layoutX="20.0" layoutY="21.0" onMouseClicked="#backAction" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="backButton" fitHeight="24.0" fitWidth="23.0" layoutX="20.0" layoutY="33.0" onMouseClicked="#backAction" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/arrow_back.png" />
                </image>
             </ImageView>
-            <Label fx:id="closeButton" layoutX="29.0" layoutY="461.0" onMouseClicked="#closeAction" prefHeight="30.0" prefWidth="23.0" text="X" textFill="WHITE">
+            <Label fx:id="closeButton" layoutX="29.0" layoutY="420.0" onMouseClicked="#closeAction" prefHeight="30.0" prefWidth="23.0" text="X" textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
+            <Label fx:id="printButton" layoutX="23.0" layoutY="485.0" onMouseClicked="#printAction" prefHeight="30.0" prefWidth="33.0" text="Print" textFill="WHITE" />
          </children>
       </Pane>
-      <TableView fx:id="table" layoutX="67.0" layoutY="11.0" prefHeight="463.0" prefWidth="1014.0">
+      <TableView fx:id="table" layoutX="67.0" layoutY="13.0" prefHeight="515.0" prefWidth="1014.0">
          <columns>
             <TableColumn fx:id="col_id" prefWidth="37.0" text="S/N" />
             <TableColumn fx:id="col_firstname" prefWidth="99.0" text="FIRSTNAME" />
@@ -39,16 +40,17 @@
             <TableColumn fx:id="col_total_unpaid_balance" prefWidth="108.0" text="UNPAID BALANCE" />
          </columns>
       </TableView>
-      <Pane layoutX="67.0" layoutY="474.0" prefHeight="46.0" prefWidth="1014.0" style="-fx-background-color: #143855;">
+      <Pane layoutX="67.0" layoutY="482.0" prefHeight="39.0" prefWidth="1014.0">
          <children>
-            <Label layoutX="177.0" layoutY="18.0" prefHeight="17.0" prefWidth="53.0" text="Total :" textFill="#fffefe" />
-            <Label fx:id="totalOutstandings" layoutX="253.0" layoutY="17.0" prefHeight="17.0" prefWidth="89.0" textFill="#fffefe" />
-            <Label fx:id="totalBudget" layoutX="403.0" layoutY="16.0" prefHeight="17.0" prefWidth="95.0" textFill="#fffefe" />
-            <Label fx:id="totalHallLevy" layoutX="512.0" layoutY="18.0" prefHeight="17.0" prefWidth="89.0" textFill="#fffefe" />
-            <Label fx:id="totalOtherLevy" layoutX="611.0" layoutY="17.0" prefHeight="17.0" prefWidth="95.0" textFill="#fffefe" />
-            <Label fx:id="totalDuesOwed" layoutX="702.0" layoutY="17.0" prefHeight="17.0" prefWidth="112.0" textFill="#fffefe" />
-            <Label fx:id="totalDuesPaid" layoutX="816.0" layoutY="17.0" prefHeight="17.0" prefWidth="95.0" textFill="#fffefe" />
-            <Label fx:id="totalUnpaidDues" layoutX="924.0" layoutY="16.0" prefHeight="17.0" prefWidth="78.0" textFill="#fffefe" />
+            <Label layoutX="176.0" layoutY="12.0" prefHeight="17.0" prefWidth="53.0" text="Total :" textFill="#2c0808" />
+            <Label fx:id="totalOutstandings" layoutX="252.0" layoutY="11.0" prefHeight="17.0" prefWidth="89.0" textFill="#2c0808" />
+            <Label fx:id="totalBudget" layoutX="402.0" layoutY="10.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalHallLevy" layoutX="511.0" layoutY="12.0" prefHeight="17.0" prefWidth="89.0" textFill="#2c0808" />
+            <Label fx:id="totalOtherLevy" layoutX="610.0" layoutY="11.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalDuesOwed" layoutX="701.0" layoutY="11.0" prefHeight="17.0" prefWidth="112.0" textFill="#2c0808" />
+            <Label fx:id="totalDuesPaid" layoutX="815.0" layoutY="11.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalUnpaidDues" layoutX="923.0" layoutY="10.0" prefHeight="17.0" prefWidth="78.0" textFill="#2c0808" />
+            <Label fx:id="jobStatus" layoutX="13.0" layoutY="11.0" prefHeight="17.0" prefWidth="53.0" textFill="#2c0808" />
          </children>
       </Pane>
    </children>

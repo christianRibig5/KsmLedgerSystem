@@ -169,39 +169,101 @@ public class UpdateDuesController implements Initializable{
         }
     }
 
+    private void validateUnpaidDues() {
+        double unpaidBalance = getTotalDues()-getPaidDues();
+        updateUnpaidBalance(unpaidBalance,createdAt.getEditor().getText());
+
+    }
 
 
     private double getTotalDues() {
-        double prevBal=Double.valueOf(outstandingBalance.getText());
-        double yearlyBudg=Double.valueOf(yearlyBudget.getText());
-        double halLevy=Double.valueOf(hallLevy.getText());
-        double odaLevies=Double.valueOf(otherLevy.getText());
-        latestTotalDues =prevBal+yearlyBudg+halLevy+odaLevies;
-        String sql="UPDATE ksm_dues  SET total_dues =? WHERE user_id = '"+getUserID()+"'";
+
+        double prevBal=getOutstandingB();
+        double yearlyBudg=getBudget();
+        double halLevy=getHallLvey();
+        double odaLevies=getOtherLevy();
+        double totalDues =prevBal+yearlyBudg+halLevy+odaLevies;
+        updateTotalDues(totalDues);
+        return totalDues;
+
+    }
+    
+    private void updateTotalDues(double totalDues) {
+        String sql="UPDATE ksm_dues" +
+                " SET total_dues =? WHERE user_id = '"+getUserID()+"'";
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setDouble(1, latestTotalDues);
+            preparedStatement.setDouble(1,totalDues);
             preparedStatement.executeUpdate();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
-        return latestTotalDues;
     }
-    private void validateUnpaidDues() {
-        double unpaidBalance=0;
-        String sql="SELECT unpaid_balance FROM ksm_dues WHERE user_id='"+getUserID()+"'";
+
+    private double getOtherLevy() {
+        double otherlevy=0;
+        String sql="SELECT other_levies FROM ksm_dues WHERE user_id='"+getUserID()+"' ";
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                unpaidBalance = resultSet.getDouble(1);
+                otherlevy = resultSet.getDouble(1);
             }
-            unpaidBalance =unpaidBalance + (getTotalDues() - getTotalPaidDues());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        updateUnpaidBalance(unpaidBalance,createdAt.getEditor().getText());
+        return otherlevy;
     }
+
+    private double getHallLvey() {
+        double halllevy=0;
+        String sql="SELECT ksm_hall_levy FROM ksm_dues WHERE user_id='"+getUserID()+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                halllevy = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return halllevy;
+    }
+
+    private double getBudget() {
+        double budget=0;
+        String sql="SELECT yearly_budget FROM ksm_dues WHERE user_id='"+getUserID()+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                budget = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return budget;
+    }
+
+    private double getOutstandingB() {
+        double outstandings=0;
+        String sql="SELECT previous_outstanding FROM ksm_dues WHERE user_id='"+getUserID()+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                outstandings = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return outstandings;
+    }
+
     private void updateUnpaidBalance(double unpaidBalance, String updateTime) {
         String sql="UPDATE ksm_dues" +
                 " SET unpaid_balance =?,updated_at =? WHERE user_id = '"+getUserID()+"'";
@@ -216,18 +278,20 @@ public class UpdateDuesController implements Initializable{
         }
     }
 
-    private double getTotalPaidDues() {
-        String sql="SELECT total_dues_paid FROM ksm_dues WHERE user_id='"+getUserID()+"'";
+    private double getPaidDues() {
+        double paidDues=0;
+        String sql="SELECT total_dues_paid FROM ksm_dues WHERE user_id='"+getUserID()+"' ";
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-                totalPaidDues = resultSet.getDouble(1);
+                paidDues = resultSet.getDouble(1);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return totalPaidDues;
+        return paidDues;
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

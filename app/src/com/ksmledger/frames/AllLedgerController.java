@@ -1,30 +1,27 @@
 package com.ksmledger.frames;
 
 import com.ksmledger.utils.AllLedgerTableModel;
-import java.sql.*;
-
+import com.ksmledger.utils.ConnectionUtil;
 import com.ksmledger.utils.CurrencyConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import com.ksmledger.utils.ConnectionUtil;
-import javafx.fxml.FXML;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.net.URL;
+import java.sql.*;
+import java.util.ResourceBundle;
 
 public class AllLedgerController implements Initializable {
     @FXML
@@ -32,6 +29,12 @@ public class AllLedgerController implements Initializable {
 
     @FXML
     private Label closeButton;
+
+    @FXML
+    private Label printButton;
+
+    @FXML
+    private AnchorPane app;
 
     @FXML
     private TableView<AllLedgerTableModel> table;
@@ -87,6 +90,9 @@ public class AllLedgerController implements Initializable {
     @FXML
     private Label totalUnpaidDues;
 
+    @FXML
+    private Label jobStatus;
+
     CurrencyConverter currencyConverter=new CurrencyConverter();
 
     ObservableList<AllLedgerTableModel> allLedgerTableModel= FXCollections.observableArrayList();
@@ -96,6 +102,7 @@ public class AllLedgerController implements Initializable {
     private Statement statement=null;
 
     public AllLedgerController(){connection= ConnectionUtil.connectDB(); }
+
 
 
 
@@ -278,6 +285,43 @@ public class AllLedgerController implements Initializable {
             totalOutstandings.setText(CurrencyConverter.ngn(sum));
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void printAction() {
+        Stage stage = (Stage) app.getScene().getWindow();
+        pageSetup(table, stage);
+    }
+
+    private void pageSetup(Node node, Stage owner) {
+        // Create the PrinterJob
+        PrinterJob job = PrinterJob.createPrinterJob();
+
+        if (job == null)
+        {
+            return;
+        }
+
+        // Show the page setup dialog
+        //boolean proceed = job.showPageSetupDialog(owner);
+        boolean proceed = job.showPrintDialog(owner);
+
+        if (proceed)
+        {
+            print(job, node);
+        }
+    }
+    private void print(PrinterJob job, Node node) {
+        // Set the Job Status Message
+        jobStatus.textProperty().bind(job.jobStatusProperty().asString());
+
+        // Print the node
+        boolean printed = job.printPage(node);
+
+        if (printed)
+        {
+            job.endJob();
         }
     }
 }

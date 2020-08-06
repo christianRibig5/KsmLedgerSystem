@@ -14,8 +14,7 @@ import javafx.stage.Window;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
 public class DuesController implements Initializable {
 
@@ -25,8 +24,7 @@ public class DuesController implements Initializable {
     @FXML
     private Label closeButton;
 
-    @FXML
-    private TextField membershipID;
+
 
     @FXML
     private Button saveButton;
@@ -37,22 +35,21 @@ public class DuesController implements Initializable {
     private DatePicker createdAt;
 
     @FXML
-    private TextField outstandingBalance;
+    private TextField duesAmount;
 
     @FXML
-    private TextField yearlyBudget;
+    private ComboBox<String> duesType;
 
-    @FXML
-    private TextField hallLevy;
+    private ArrayList<Integer>allUserIDs=new ArrayList<>();
 
-    @FXML
-    private TextField otherLevy;
+
 
     private Connection connection=null;
     private PreparedStatement preparedStatement=null;
     private ResultSet resultSet=null;
     private LoggedInAdminUserId loggedInAdminUserId =new LoggedInAdminUserId();
     private Statement statement=null;
+
 
     public DuesController(){
         connection= ConnectionUtil.connectDB();
@@ -62,145 +59,177 @@ public class DuesController implements Initializable {
     void saveAction() {
 
         Window owner = saveButton.getScene().getWindow();
-        if(membershipID.getText().isEmpty()){
-            showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter your membership Id");
-            return;
-        }
-        checkIfMembershipIDAlreadyExist(membershipID.getText());
 
-        if(outstandingBalance.getText()==null|| outstandingBalance.getText().isEmpty()){
+        if(duesType.getSelectionModel().getSelectedItem()==null){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter the previous outstanding");
+                    "Please select dues type");
             return;
         }
-        if(yearlyBudget.getText()==null || yearlyBudget.getText().isEmpty()){
+        if(duesAmount.getText()==null || duesAmount.getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
-                    "Please enter yearly budget");
-            return;
-        } if(hallLevy.getText()==null || hallLevy.getText().isEmpty()){
-            showAlert(Alert.AlertType.ERROR, owner, "Hall Levy!",
-                    "");
-            hallLevy.setText("0");
+                    "Please enter amount");
             return;
         }
-        if(otherLevy.getText()==null || otherLevy.getText().isEmpty()){
-            showAlert(Alert.AlertType.ERROR, owner, "Other Levy!",
-                    "No other levy?");
-            otherLevy.setText("0");
-            return;
-        }
-
 
         if(createdAt.getEditor().getText().isEmpty()){
             showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
                     "Please enter date");
             return;
         }
-        if(!checkIfMemberDuesAlreadyCreated(getUserID(membershipID.getText()))){
-
-            String query="INSERT INTO ksm_dues(user_id,previous_outstanding,yearly_budget,ksm_hall_levy,other_levies,total_dues,total_dues_paid,unpaid_balance, created_at, updated_at)" +
-                    "VALUES('"+getUserID(membershipID.getText())+"',?,?,?,?,'"+totalDues()+"',0.0,'"+totalUnpaidDues()+"',?,?)";
-            try {
-                preparedStatement=connection.prepareStatement(query);
-                preparedStatement.setDouble(1, Double.parseDouble(outstandingBalance.getText()));
-                preparedStatement.setDouble(2, Double.parseDouble(yearlyBudget.getText()));
-                preparedStatement.setDouble(3, Double.parseDouble(hallLevy.getText()));
-                preparedStatement.setDouble(4, Double.parseDouble(otherLevy.getText()));
-                preparedStatement.setString(5,createdAt.getEditor().getText());
-                preparedStatement.setString(6,createdAt.getEditor().getText());
-                preparedStatement.executeUpdate();
-                showAlert(Alert.AlertType.CONFIRMATION, owner, "Dues saved Successfully!", "Thank you!");
-                clearText();
-            }catch (SQLException ex){
-                Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,ex);
-                return;
-            }
+        String sql="";
+        if(duesType.getSelectionModel().getSelectedItem()=="Yearly Budget"){
+            sql="UPDATE ksm_dues SET yearly_budget = ?, created_at=?";
+        }else if(duesType.getSelectionModel().getSelectedItem()=="Hall Levy"){
+            sql="UPDATE ksm_dues SET ksm_hall_levy = ?, created_at=?";
         }
 
-
-    }
-
-    private boolean checkIfMemberDuesAlreadyCreated(int userId) {
-        boolean duesIsCreated=false;
-        String checkQuery= "SELECT * from ksm_dues WHERE user_id = '" +userId+ "'";
         try {
-            preparedStatement=connection.prepareStatement(checkQuery);
-            resultSet=preparedStatement.executeQuery();
-            if(resultSet.next()){
-                infoBox("Sorry dues for this member already created",null,"failed");
-                duesIsCreated=true;
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,e);
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,duesAmount.getText());
+            preparedStatement.setString(2,createdAt.getEditor().getText());
+            preparedStatement.executeUpdate();
+            //int[] userIds=new int[6];
+            validateUnpaidDues(allUserIDs);
+            showAlert(Alert.AlertType.CONFIRMATION, owner,
+                    ""+duesType.getSelectionModel().getSelectedItem()+"!", "Data update was successful!");
+            clearText();
+        }catch(SQLException ex){
+            ex.printStackTrace();
         }
-        return duesIsCreated;
+
+
+
     }
 
-    private double totalUnpaidDues() {
-        return totalDues();
+    private void validateUnpaidDues(ArrayList<Integer> userIds) {
+        for(int i=0;i<userIds.size();i++){
+            double unpaidBalance = getTotalDues(userIds.get(i))-getPaidDues(userIds.get(i));
+            updateUnpaidBalance(unpaidBalance,userIds.get(i));
+        }
+
     }
 
-    private double totalDues() {
-        double prevBal=Double.valueOf(outstandingBalance.getText());
-        double yearlyBudg=Double.valueOf(yearlyBudget.getText());
-        double halLevy=Double.valueOf(hallLevy.getText());
-        double odaLevies=Double.valueOf(otherLevy.getText());
-//        if(!outstandingBalance.getText().isEmpty()) {
-//            prevBal=Double.valueOf(outstandingBalance.getText().toString());
-//        }
-//        if(!yearlyBudget.getText().isEmpty()){
-//            yearlyBudg=Double.valueOf(yearlyBudget.getText().toString());
-//        }
-//       if(!hallLevy.getText().isEmpty()){
-//           halLevy=Double.valueOf(hallLevy.getText().toString());
-//       }
-//       if(!otherLevy.getText().isEmpty()){
-//           odaLevies=Double.valueOf(otherLevy.getText().toString());
-//       }
-
-        return (prevBal+yearlyBudg+halLevy+odaLevies);
-    }
-
-
-
-    private int getUserID(String text) {
-        String checkQuery= "SELECT id  from ksm_users WHERE membership_id = '" + text + "'";
-        int id=0;
+    private double getPaidDues(int id) {
+        double paidDues=0;
+        String sql="SELECT total_dues_paid FROM ksm_dues WHERE user_id='"+id+"' ";
         try {
-            preparedStatement=connection.prepareStatement(checkQuery);
-            resultSet=preparedStatement.executeQuery();
-            if(resultSet.next()){
-                id=resultSet.getInt(1);
-                loggedInAdminUserId.setLoggedAdminUserId(id);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                paidDues = resultSet.getDouble(1);
             }
-        } catch (SQLException e) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,e);
-        }
 
-        return id;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return paidDues;
     }
 
-    private void checkIfMembershipIDAlreadyExist(String text) {
-        String checkQuery= "SELECT * from ksm_users WHERE membership_id = '" + text + "'";
+
+    private double getTotalDues(int id) {
+        double totalDues=0;
+        double outstBalance=getOutstandingB(id);
+        double budget=getBudget(id);
+        double hallLevey=getHallLvey(id);
+        double otherLevey=getOtherLevy(id);
+        totalDues=(outstBalance+budget+hallLevey+otherLevey);
+        updateTotalDues(totalDues,id);
+        return totalDues;
+    }
+
+    private double getOtherLevy(int id) {
+        double otherlevy=0;
+        String sql="SELECT other_levies FROM ksm_dues WHERE user_id='"+id+"' ";
         try {
-            preparedStatement=connection.prepareStatement(checkQuery);
-            resultSet=preparedStatement.executeQuery();
-            if(!resultSet.next()){
-                infoBox("Sorry this membership_id is invalid",null,"failed");
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                otherlevy = resultSet.getDouble(1);
             }
+
         } catch (SQLException e) {
-            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,e);
+            e.printStackTrace();
+        }
+        return otherlevy;
+    }
+
+    private double getHallLvey(int id) {
+        double halllevy=0;
+        String sql="SELECT ksm_hall_levy FROM ksm_dues WHERE user_id='"+id+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                halllevy = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return halllevy;
+    }
+
+    private double getBudget(int id) {
+        double budget=0;
+        String sql="SELECT yearly_budget FROM ksm_dues WHERE user_id='"+id+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                budget = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return budget;
+    }
+
+    private double getOutstandingB(int id) {
+        double outstandings=0;
+        String sql="SELECT previous_outstanding FROM ksm_dues WHERE user_id='"+id+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                outstandings = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return outstandings;
+    }
+
+    private void updateTotalDues(double dues,int id) {
+        String sql="UPDATE ksm_dues" +
+                " SET total_dues =? WHERE user_id = '"+id+"'";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1,dues);
+            preparedStatement.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
         }
     }
 
-    private static  void infoBox(String infoMessage, String headerText, String title){
-        Alert alert =new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText(infoMessage);
-        alert.setHeaderText(headerText);
-        alert.setTitle(title);
-        alert.showAndWait();
+
+
+    private void updateUnpaidBalance(double unpaidBalance, int id) {
+        String sql="UPDATE ksm_dues" +
+                " SET unpaid_balance =? WHERE user_id = '"+id+"'";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setDouble(1,unpaidBalance);
+            preparedStatement.executeUpdate();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
+
+
+
 
     private static void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
         Alert alert = new Alert(alertType);
@@ -240,17 +269,23 @@ public class DuesController implements Initializable {
     }
 
     private void clearText() {
-        membershipID.clear();
-        outstandingBalance.clear();
-        yearlyBudget.clear();
-        hallLevy.clear();
-        otherLevy.clear();
+        duesAmount.clear();
+        duesType.getEditor().clear();
         createdAt.getEditor().clear();
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        duesType.getItems().addAll("Yearly Budget","Hall Levy");
+        String sql="SELECT user_id FROM ksm_dues ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                allUserIDs.add(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.ksmledger.frames;
 
 import com.ksmledger.utils.ConnectionUtil;
+import com.ksmledger.utils.CurrentDate;
 import com.ksmledger.utils.EmailPattern;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,9 +63,13 @@ public class RegistrationController implements Initializable {
     @FXML
     private TextField country=null;
 
+    @FXML
+    private TextField outstandingDebt;
+
     private Connection connection=null;
     private PreparedStatement preparedStatement=null;
     private ResultSet resultSet=null;
+    private int lastStoredUserID=0;
 
     public RegistrationController(){ connection= ConnectionUtil.connectDB();}
 
@@ -107,6 +112,7 @@ public class RegistrationController implements Initializable {
         state.clear();
         country.clear();
         dateDob.getEditor().clear();
+        outstandingDebt.clear();
     }
     @FXML
     void saveAction() {
@@ -146,12 +152,18 @@ public class RegistrationController implements Initializable {
 
         }
         checkIfEmailAlreadyExist(email.getText());
+        if(outstandingDebt.getText()==null || outstandingDebt.getText().isEmpty()){
+            showAlert(Alert.AlertType.ERROR, owner, "Outstanding Debt!",
+                    "No outstanding debt?");
+            outstandingDebt.setText("0");
+            return;
+        }
 
         String query="INSERT INTO ksm_users(firstname, middlename, lastname, membership_id," +
                 "email, phone, initiation_date, address, city, state, country, avatar_path, role_id)" +
                 "VALUES(?,?,?,?,?,?,?,?,?,?,?,null,2)";
         try {
-            preparedStatement=connection.prepareStatement(query);
+            preparedStatement=connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1,firstName.getText());
             preparedStatement.setString(2,middleName.getText());
             preparedStatement.setString(3,lastName.getText());
@@ -164,18 +176,68 @@ public class RegistrationController implements Initializable {
             preparedStatement.setString(10,state.getText());
             preparedStatement.setString(11,country.getText());
             preparedStatement.executeUpdate();
-            showAlert(Alert.AlertType.CONFIRMATION, owner,
-                    "Registration Successful!",
-                    "Welcome " + firstName.getText()+" "+lastName.getText());
-            clearText();
-            preparedStatement.close();
-            resultSet.close();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            int generatedKey=0;
+            if (resultSet.next()) {
+                generatedKey = resultSet.getInt(1);
+//                showAlert(Alert.AlertType.ERROR, owner, "Success!!",
+//                        "Welcome "+firstName.getText()+" "+lastName.getText());
+                infoBox("Registration successful for "+firstName.getText()+" "+lastName.getText(),null,"Registration Success!!");
+            }
+            lastStoredUserID=generatedKey;
+            recordDebt();
+
         }catch (SQLException ex){
             Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,ex);
             return;
         }
 
     }
+
+
+
+    private void recordDebt() {
+        String query="INSERT INTO ksm_dues(user_id, previous_outstanding, yearly_budget, ksm_hall_levy, other_levies, total_dues, total_dues_paid,unpaid_balance, created_at, updated_at)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            preparedStatement=connection.prepareStatement(query);
+            preparedStatement.setInt(1,lastStoredUserID);
+            preparedStatement.setDouble(2, Double.parseDouble(outstandingDebt.getText()));
+            preparedStatement.setDouble(3,0.0);
+            preparedStatement.setDouble(4,0.0);
+            preparedStatement.setDouble(5,0.0);
+            preparedStatement.setDouble(6,totalDues());
+            preparedStatement.setDouble(7,0.0);
+            preparedStatement.setDouble(8,totalUnpaidDues());
+            preparedStatement.setString(9,CurrentDate.getCurrentDate());
+            preparedStatement.setString(10,CurrentDate.getCurrentDate());
+            preparedStatement.executeUpdate();
+            clearText();
+        }catch (SQLException ex){
+            Logger.getLogger(RegistrationController.class.getName()).log(Level.SEVERE, null,ex);
+            return;
+        }
+
+    }
+
+//    private int getUserID() {
+//        return 0;
+//    }
+
+    private double totalUnpaidDues() {
+        return totalDues();
+    }
+
+    private double totalDues() {
+        double prevBal=Double.valueOf(outstandingDebt.getText());
+        double yearlyBudget=0.0;
+        double halLevy=0.0;
+        double odaLevies=0.0;
+
+
+        return (prevBal+yearlyBudget+halLevy+odaLevies);
+    }
+
     private void checkIfMembershipIDAlreadyExist(String text) {
         String checkQuery= "SELECT * from ksm_users WHERE membership_id = '" + text + "'";
         try {
