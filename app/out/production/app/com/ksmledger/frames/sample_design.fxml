@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="433.0" prefWidth="821.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.SampleDesign">
+   <children>
+      <Pane layoutX="97.0" layoutY="-2.0" prefHeight="400.0" prefWidth="682.0">
+         <children>
+            <VBox layoutY="-1.0" prefHeight="400.0" prefWidth="720.0">
+               <children>
+                  <TableView prefHeight="322.0" prefWidth="716.0">
+                     <columns>
+                        <TableColumn prefWidth="28.0" text="sn" />
+                        <TableColumn text="First Name" />
+                        <TableColumn prefWidth="100.0" text="Oustandings" />
+                        <TableColumn prefWidth="100.0" text="Yearly Budget" />
+                        <TableColumn prefWidth="100.0" text="Hall Levy" />
+                        <TableColumn prefWidth="88.0" text="Other Levy" />
+                     </columns>
+                  </TableView>
+                  <HBox prefHeight="38.0" prefWidth="706.0">
+                     <children>
+                        <Pane prefHeight="38.0" prefWidth="708.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="37.0" prefWidth="706.0">
+                     <children>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
