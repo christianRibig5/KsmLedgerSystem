@@ -57,7 +57,6 @@ public class UpdateDuesController implements Initializable{
 
     private double latestTotalDues =0;
     double totalPaidDues=0;
-
     public UpdateDuesController(){
         connection = ConnectionUtil.connectDB();
     }
@@ -187,7 +186,7 @@ public class UpdateDuesController implements Initializable{
         return totalDues;
 
     }
-    
+
     private void updateTotalDues(double totalDues) {
         String sql="UPDATE ksm_dues" +
                 " SET total_dues =? WHERE user_id = '"+getUserID()+"'";
