@@ -81,6 +81,10 @@ public class DuesController implements Initializable {
             sql="UPDATE ksm_dues SET yearly_budget = ?, created_at=?";
         }else if(duesType.getSelectionModel().getSelectedItem()=="Hall Levy"){
             sql="UPDATE ksm_dues SET ksm_hall_levy = ?, created_at=?";
+        }else if(duesType.getSelectionModel().getSelectedItem()=="Burial Levy"){
+            sql="UPDATE ksm_dues SET burial_levy = ?, created_at=?";
+        }else if(duesType.getSelectionModel().getSelectedItem()=="Marriage Levy"){
+            sql="UPDATE ksm_dues SET marriage_levy = ?, created_at=?";
         }
 
         try {
@@ -131,10 +135,44 @@ public class DuesController implements Initializable {
         double outstBalance=getOutstandingB(id);
         double budget=getBudget(id);
         double hallLevey=getHallLvey(id);
+        double burialLevey=getBurialLvey(id);
+        double marriageLevey=getMariageLvey(id);
         double otherLevey=getOtherLevy(id);
-        totalDues=(outstBalance+budget+hallLevey+otherLevey);
+        totalDues=(outstBalance+budget+hallLevey+burialLevey+marriageLevey+otherLevey);
         updateTotalDues(totalDues,id);
         return totalDues;
+    }
+
+    private double getMariageLvey(int id) {
+        double marriagelevy=0;
+        String sql="SELECT marriage_levy FROM ksm_dues WHERE user_id='"+id+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                marriagelevy = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return marriagelevy;
+    }
+
+    private double getBurialLvey(int id) {
+        double buriallevy=0;
+        String sql="SELECT burial_levy FROM ksm_dues WHERE user_id='"+id+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                buriallevy = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return buriallevy;
     }
 
     private double getOtherLevy(int id) {
@@ -276,7 +314,7 @@ public class DuesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        duesType.getItems().addAll("Yearly Budget","Hall Levy");
+        duesType.getItems().addAll("Yearly Budget","Hall Levy","Burial Levy","Marriage Levy");
         String sql="SELECT user_id FROM ksm_dues ";
         try {
             statement = connection.createStatement();

@@ -173,6 +173,7 @@ public class DrawerContentController implements Initializable {
             Node node =(Node)event.getSource();
             Stage stage=(Stage)node.getScene().getWindow();
             stage.close();
+            //stage.initStyle(StageStyle.DECORATED);
             Scene scene= null;
             scene = new Scene(FXMLLoader.load(getClass().getResource("allLedger.fxml")));
             stage.setScene(scene);

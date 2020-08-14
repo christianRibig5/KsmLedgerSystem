@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="app" prefHeight="487.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.AllLedgerController">
+<AnchorPane fx:id="app" prefHeight="528.0" prefWidth="1341.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ksmledger.frames.AllLedgerController">
    <children>
       <Pane layoutX="-4.0" layoutY="-3.0" prefHeight="531.0" prefWidth="71.0" style="-fx-background-color: #143855;">
          <children>
@@ -26,31 +26,35 @@
             <Label fx:id="printButton" layoutX="23.0" layoutY="485.0" onMouseClicked="#printAction" prefHeight="30.0" prefWidth="33.0" text="Print" textFill="WHITE" />
          </children>
       </Pane>
-      <TableView fx:id="table" layoutX="67.0" layoutY="13.0" prefHeight="515.0" prefWidth="1014.0">
+      <TableView fx:id="table" layoutX="66.0" layoutY="14.0" prefHeight="515.0" prefWidth="1289.0">
          <columns>
             <TableColumn fx:id="col_id" prefWidth="37.0" text="S/N" />
             <TableColumn fx:id="col_firstname" prefWidth="99.0" text="FIRSTNAME" />
             <TableColumn fx:id="col_lastname" prefWidth="99.0" text="LASTNAME" />
-            <TableColumn fx:id="col_outstanding" prefWidth="164.0" text="PREVIOUS OUTSTANDING " />
-            <TableColumn fx:id="col_budget" prefWidth="104.0" text="YEARLY BUDGET" />
-            <TableColumn fx:id="col_hall_levy" prefWidth="92.0" text="HALL LEVY" />
-            <TableColumn fx:id="col_other_levy" prefWidth="97.0" text="OTHER LEVIES" />
-            <TableColumn fx:id="col_total_dues" prefWidth="96.0" text="TOTAL DUES" />
-            <TableColumn fx:id="col_total_paid_dues" prefWidth="117.0" text="TOTAL DUES PAID" />
-            <TableColumn fx:id="col_total_unpaid_balance" prefWidth="108.0" text="UNPAID BALANCE" />
+            <TableColumn fx:id="col_outstanding" prefWidth="119.0" text="OUTSTANDINGS" />
+            <TableColumn fx:id="col_budget" prefWidth="109.0" text=" BUDGET" />
+            <TableColumn fx:id="col_burial" prefWidth="114.0" text="BURIAL" />
+            <TableColumn fx:id="col_marriage" prefWidth="115.0" text="MARRIAGE" />
+            <TableColumn fx:id="col_hall_levy" prefWidth="91.0" text="HALL " />
+            <TableColumn fx:id="col_other_levy" prefWidth="113.0" text="OTHERS" />
+            <TableColumn fx:id="col_total_dues" minWidth="0.0" prefWidth="126.0" text="TOTAL DUES" />
+            <TableColumn fx:id="col_total_paid_dues" prefWidth="130.0" text="PAID" />
+            <TableColumn fx:id="col_total_unpaid_balance" prefWidth="110.0" text="UNPAID" />
          </columns>
       </TableView>
-      <Pane layoutX="67.0" layoutY="482.0" prefHeight="39.0" prefWidth="1014.0">
+      <Pane layoutX="67.0" layoutY="482.0" prefHeight="39.0" prefWidth="1289.0">
          <children>
             <Label layoutX="176.0" layoutY="12.0" prefHeight="17.0" prefWidth="53.0" text="Total :" textFill="#2c0808" />
             <Label fx:id="totalOutstandings" layoutX="252.0" layoutY="11.0" prefHeight="17.0" prefWidth="89.0" textFill="#2c0808" />
-            <Label fx:id="totalBudget" layoutX="402.0" layoutY="10.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
-            <Label fx:id="totalHallLevy" layoutX="511.0" layoutY="12.0" prefHeight="17.0" prefWidth="89.0" textFill="#2c0808" />
-            <Label fx:id="totalOtherLevy" layoutX="610.0" layoutY="11.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
-            <Label fx:id="totalDuesOwed" layoutX="701.0" layoutY="11.0" prefHeight="17.0" prefWidth="112.0" textFill="#2c0808" />
-            <Label fx:id="totalDuesPaid" layoutX="815.0" layoutY="11.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
-            <Label fx:id="totalUnpaidDues" layoutX="923.0" layoutY="10.0" prefHeight="17.0" prefWidth="78.0" textFill="#2c0808" />
+            <Label fx:id="totalBudget" layoutX="367.0" layoutY="10.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalBurialLevy" layoutX="494.0" layoutY="12.0" prefHeight="17.0" prefWidth="89.0" textFill="#2c0808" />
+            <Label fx:id="totalMarriageLevy" layoutX="592.0" layoutY="11.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalHallLevy" layoutX="701.0" layoutY="11.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalOtherLevy" layoutX="797.0" layoutY="11.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalDuesOwed" layoutX="923.0" layoutY="10.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
             <Label fx:id="jobStatus" layoutX="13.0" layoutY="11.0" prefHeight="17.0" prefWidth="53.0" textFill="#2c0808" />
+            <Label fx:id="totalDuesPaid" layoutX="1042.0" layoutY="12.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
+            <Label fx:id="totalUnpaidDues" layoutX="1166.0" layoutY="10.0" prefHeight="17.0" prefWidth="95.0" textFill="#2c0808" />
          </children>
       </Pane>
    </children>

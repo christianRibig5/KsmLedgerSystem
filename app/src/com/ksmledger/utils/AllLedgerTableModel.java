@@ -6,18 +6,22 @@ public class AllLedgerTableModel {
     private String lastName;
     private String previousOutstanding;
     private String yearlyBudget;
+    private String burialLevy;
+    private String marriageLevy;
     private String hallLevy;
     private String otherLevies;
     private String totalDues;
     private String totalDuesPaid;
     private String totalUnpaidDues;
 
-    public AllLedgerTableModel(String id, String firstName, String lastName, String previousOutstanding, String yearlyBudget, String hallLevy, String otherLevies, String totalDues, String totalDuesPaid, String totalUnpaidDues) {
+    public AllLedgerTableModel(String id, String firstName, String lastName, String previousOutstanding, String yearlyBudget, String burialLevy, String marriageLevy, String hallLevy, String otherLevies, String totalDues, String totalDuesPaid, String totalUnpaidDues) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.previousOutstanding = previousOutstanding;
         this.yearlyBudget = yearlyBudget;
+        this.burialLevy = burialLevy;
+        this.marriageLevy = marriageLevy;
         this.hallLevy = hallLevy;
         this.otherLevies = otherLevies;
         this.totalDues = totalDues;
@@ -63,6 +67,22 @@ public class AllLedgerTableModel {
 
     public void setYearlyBudget(String yearlyBudget) {
         this.yearlyBudget = yearlyBudget;
+    }
+
+    public String getBurialLevy() {
+        return burialLevy;
+    }
+
+    public void setBurialLevy(String burialLevy) {
+        this.burialLevy = burialLevy;
+    }
+
+    public String getMarriageLevy() {
+        return marriageLevy;
+    }
+
+    public void setMarriageLevy(String marriageLevy) {
+        this.marriageLevy = marriageLevy;
     }
 
     public String getHallLevy() {

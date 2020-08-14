@@ -34,13 +34,22 @@
       </Label>
       <Separator layoutX="154.0" layoutY="76.0" prefHeight="1.0" prefWidth="325.0" style="-fx-background-color: #143855;" />
       <TextField fx:id="membershipID" layoutX="186.0" layoutY="98.0" prefHeight="29.0" prefWidth="170.0" promptText="Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <Button fx:id="updateButton" layoutX="381.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#updateAction" opacity="0.81" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #143855;" text="UPDATE" textFill="#dadada" />
+      <Button fx:id="updateButton" layoutX="381.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#updateAction" opacity="0.81" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #143855;" text="UPDATE" textFill="#dadada" />
       <DatePicker fx:id="createdAt" layoutX="365.0" layoutY="191.0" prefHeight="29.0" prefWidth="170.0" promptText="Date" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" />
       <TextField fx:id="outstandingBalance" layoutX="365.0" layoutY="98.0" prefHeight="29.0" prefWidth="170.0" promptText="Previous Outsatnding" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
       <TextField fx:id="yearlyBudget" layoutX="186.0" layoutY="141.0" prefHeight="29.0" prefWidth="170.0" promptText="Yearly Budget" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
       <TextField fx:id="hallLevy" layoutX="365.0" layoutY="141.0" prefHeight="29.0" prefWidth="170.0" promptText="Hall Levy" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
       <TextField fx:id="otherLevy" layoutX="186.0" layoutY="191.0" prefHeight="29.0" prefWidth="170.0" promptText="Other Levies" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <TextField fx:id="searchedMemberID" layoutX="263.0" layoutY="268.0" prefHeight="29.0" prefWidth="107.0" promptText="Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
-      <Button fx:id="findButton" layoutX="186.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#FindAction" opacity="0.81" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #143855;" text="FIND" textFill="#dadada" />
+      <TextField fx:id="searchedMemberID" layoutX="263.0" layoutY="304.0" prefHeight="29.0" prefWidth="107.0" promptText="Membership ID" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <Button fx:id="findButton" layoutX="186.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#FindAction" opacity="0.81" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #143855;" text="FIND" textFill="#dadada" />
+      <TextField fx:id="burialLevy" layoutX="187.0" layoutY="232.0" prefHeight="29.0" prefWidth="170.0" promptText="Burial Levy" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <TextField fx:id="marriageLevy" layoutX="365.0" layoutY="232.0" prefHeight="29.0" prefWidth="170.0" promptText="Marriage Levy" style="-fx-border-color: #FFFFFF #FFFFFF #143855  #FFFFFF; -fx-background-color: #FFFFFF;" styleClass="text-input" stylesheets="@../../../style.css" />
+      <Label fx:id="totalDues" layoutX="187.0" layoutY="269.0" prefHeight="27.0" prefWidth="107.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="paidDues" layoutX="310.0" layoutY="269.0" prefHeight="27.0" prefWidth="113.0" />
+      <Label fx:id="unpaidBalance" layoutX="436.0" layoutY="269.0" prefHeight="27.0" prefWidth="125.0" />
    </children>
 </AnchorPane>

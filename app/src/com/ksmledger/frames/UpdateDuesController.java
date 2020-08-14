@@ -46,6 +46,20 @@ public class UpdateDuesController implements Initializable{
 
     @FXML
     private TextField searchedMemberID;
+    @FXML
+    private TextField burialLevy;
+
+    @FXML
+    private TextField marriageLevy;
+
+    @FXML
+    private Label totalDues;
+
+    @FXML
+    private Label paidDues;
+
+    @FXML
+    private Label unpaidBalance;
 
     @FXML
     private Button findButton;
@@ -72,7 +86,7 @@ public class UpdateDuesController implements Initializable{
         }
 
         try {
-            String sql="SELECT previous_outstanding, yearly_budget,ksm_hall_levy,other_levies, created_at FROM ksm_dues WHERE user_id = '"+getUserID()+"'";
+            String sql="SELECT * FROM ksm_dues WHERE user_id = '"+getUserID()+"'";
             preparedStatement=connection.prepareStatement(sql);
             resultSet=preparedStatement.executeQuery();
             if(resultSet.next()){
@@ -81,7 +95,13 @@ public class UpdateDuesController implements Initializable{
                 hallLevy.setText(resultSet.getString("ksm_hall_levy"));
                 otherLevy.setText(resultSet.getString("other_levies"));
                 createdAt.getEditor().setText(resultSet.getString("created_at"));
+                burialLevy.setText(resultSet.getString("burial_levy"));
+                marriageLevy.setText(resultSet.getString("marriage_levy"));
+                totalDues.setText("Dues: "+resultSet.getString("total_dues"));
+                paidDues.setText("Paid: "+resultSet.getString("total_dues_paid"));
+                unpaidBalance.setText("Unpaid: "+resultSet.getString("unpaid_balance"));
                 membershipID.setText(searchedMemberID.getText());
+
 
             }else{
                 showAlert(Alert.AlertType.ERROR, owner, "Form Error!",
@@ -150,15 +170,17 @@ public class UpdateDuesController implements Initializable{
         }
 
         String sql="UPDATE ksm_dues" +
-                    " SET previous_outstanding = ?,yearly_budget = ?, ksm_hall_levy = ?," +
+                    " SET previous_outstanding = ?,yearly_budget = ?,burial_levy=?,marriage_levy=?, ksm_hall_levy = ?," +
                     "other_levies=? WHERE user_id = '"+getUserID()+"'";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,outstandingBalance.getText());
             preparedStatement.setString(2,yearlyBudget.getText());
-            preparedStatement.setString(3,hallLevy.getText());
-            preparedStatement.setString(4,otherLevy.getText());
+            preparedStatement.setString(3,burialLevy.getText());
+            preparedStatement.setString(4,marriageLevy.getText());
+            preparedStatement.setString(5,hallLevy.getText());
+            preparedStatement.setString(6,otherLevy.getText());
             preparedStatement.executeUpdate();
             validateUnpaidDues();
             showAlert(Alert.AlertType.CONFIRMATION, owner,
@@ -180,8 +202,10 @@ public class UpdateDuesController implements Initializable{
         double prevBal=getOutstandingB();
         double yearlyBudg=getBudget();
         double halLevy=getHallLvey();
+        double burialLevey=getBurialLvey();
+        double marriageLevey=getMariageLvey();
         double odaLevies=getOtherLevy();
-        double totalDues =prevBal+yearlyBudg+halLevy+odaLevies;
+        double totalDues =(prevBal+yearlyBudg+halLevy+burialLevey+ marriageLevey+odaLevies);
         updateTotalDues(totalDues);
         return totalDues;
 
@@ -197,6 +221,38 @@ public class UpdateDuesController implements Initializable{
         }catch(SQLException ex){
             ex.printStackTrace();
         }
+    }
+
+    private double getMariageLvey() {
+        double marriagelevy=0;
+        String sql="SELECT marriage_levy FROM ksm_dues WHERE user_id='"+getUserID()+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                marriagelevy = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return marriagelevy;
+    }
+
+    private double getBurialLvey() {
+        double buriallevy=0;
+        String sql="SELECT burial_levy FROM ksm_dues WHERE user_id='"+getUserID()+"' ";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                buriallevy = resultSet.getDouble(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return buriallevy;
     }
 
     private double getOtherLevy() {
@@ -294,6 +350,11 @@ public class UpdateDuesController implements Initializable{
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        membershipID.setEditable(false);
+        outstandingBalance.setEditable(false);
+        yearlyBudget.setEditable(false);
+        burialLevy.setEditable(false);
+        marriageLevy.setEditable(false);
+        hallLevy.setEditable(false);
     }
 }

@@ -76,6 +76,18 @@ public class AllLedgerController implements Initializable {
     private Label totalBudget;
 
     @FXML
+    private Label totalBurialLevy;
+
+    @FXML
+    private Label totalMarriageLevy;
+
+    @FXML
+    private TableColumn<?, ?> col_burial;
+
+    @FXML
+    private TableColumn<?, ?> col_marriage;
+
+    @FXML
     private Label totalHallLevy;
 
     @FXML
@@ -129,7 +141,7 @@ public class AllLedgerController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         String sql="SELECT ksm_dues.id,ksm_users.firstname," +
-                "ksm_users.lastname,ksm_dues.previous_outstanding,ksm_dues.yearly_budget," +
+                "ksm_users.lastname,ksm_dues.previous_outstanding,ksm_dues.yearly_budget,ksm_dues.burial_levy, ksm_dues.marriage_levy," +
                 "ksm_dues.ksm_hall_levy,ksm_dues.other_levies,ksm_dues.total_dues,ksm_dues.total_dues_paid,ksm_dues.unpaid_balance " +
                 "FROM ksm_dues " +
                 "LEFT OUTER JOIN ksm_users " +
@@ -143,6 +155,8 @@ public class AllLedgerController implements Initializable {
                         resultSet.getString("lastname"),
                         resultSet.getString("previous_outstanding"),
                         resultSet.getString("yearly_budget"),
+                        resultSet.getString("burial_levy"),
+                        resultSet.getString("marriage_levy"),
                         resultSet.getString("ksm_hall_levy"),
                         resultSet.getString("other_levies"),
                         resultSet.getString("total_dues"),
@@ -157,6 +171,8 @@ public class AllLedgerController implements Initializable {
         col_lastname.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         col_outstanding.setCellValueFactory(new PropertyValueFactory<>("previousOutstanding"));
         col_budget.setCellValueFactory(new PropertyValueFactory<>("yearlyBudget"));
+        col_burial.setCellValueFactory(new PropertyValueFactory<>("burialLevy"));
+        col_marriage.setCellValueFactory(new PropertyValueFactory<>("marriageLevy"));
         col_hall_levy.setCellValueFactory(new PropertyValueFactory<>("hallLevy"));
         col_other_levy.setCellValueFactory(new PropertyValueFactory<>("otherLevies"));
         col_total_dues.setCellValueFactory(new PropertyValueFactory<>("totalDues"));
@@ -165,12 +181,50 @@ public class AllLedgerController implements Initializable {
         table.setItems(allLedgerTableModel);
         setTotalOutstandings();
         setTotalBudget();
+        setTotalBurialLevy();
+        setTotalMarriageLevy();
         setTotalHallLevy();
         setTotalOtherLevy();
         setTotalDuesOwed();
         setTotalDuesPaid();
         setTotalUnpaidDues();
 
+
+    }
+
+    private void setTotalMarriageLevy() {
+        double sum=0;
+        String sql="SELECT SUM(marriage_levy) FROM ksm_dues";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                double marriageLevy = resultSet.getDouble(1);
+                sum = sum + marriageLevy;
+            }
+
+            totalMarriageLevy.setText(CurrencyConverter.ngn(sum));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setTotalBurialLevy() {
+        double sum=0;
+        String sql="SELECT SUM(burial_levy) FROM ksm_dues";
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                double burialLevy = resultSet.getDouble(1);
+                sum = sum + burialLevy;
+            }
+
+            totalBurialLevy.setText(CurrencyConverter.ngn(sum));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
